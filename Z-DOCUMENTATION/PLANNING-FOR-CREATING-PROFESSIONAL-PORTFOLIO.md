@@ -1,7 +1,7 @@
 # i created this next app using this command
 npx create-next-app@latest my-radix-app --typescript --tailwind --eslint --app --src-dir --import-alias "@/*"
 
-### now i want to create the professional portfolio so for that i want the complete comprehensive planning file which when i implement than i can easily develop the next app for portfolio 
+### now i want to create the professional portfolio so for that i want the complete comprehensive planning file which when i implement than i can easily develop the next app for pro level portfolio (which should be looks like the pro level developer's portfolio )
 
 ### This portfolio including these features and pages(the app is fully static not any api routes and there should be proper mock data files for project, skills and others and all the data should be comming from that in the object format)
 
@@ -104,3 +104,5 @@ npx create-next-app@latest my-radix-app --typescript --tailwind --eslint --app -
 so now give me the complete professional planning covering all the things and make sure when i implement this planning than code should be optimized , generic and professional and every things should be smooth and working well and smooth and looking completely professional and modern (not over look at all )
 and also there should be professional color scheme with light and dark mode (use the redix ui or shade cd which should be compatible according to our requirements )
 i want the complete professional planning files with phases in which first one is foundation phase which should be optimized and professional and generic and every things should be according to best practices of next js and optimized and working well and if some things are not in this prompt but important than also consider them in the planning and make sure after implementing this planning given you , the portfolio should be look the most professional and modern and nice looking like the pro level developer portfolio and looking the enter prize level touch and should be pro level touch and every things should be generic and professional and optimized and accoding to the best practices of the next js 
+
+and make sure animation and color schemes  related planning should be strong which should be pro level and smooth and planning should be phase wise which should be professional and working well according to best practices of next js and over all others 
