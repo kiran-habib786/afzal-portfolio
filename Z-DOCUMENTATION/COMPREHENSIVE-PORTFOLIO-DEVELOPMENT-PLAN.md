@@ -122,7 +122,8 @@ src/
 │   ├── layout/
 │   │   ├── Header.tsx                # Navigation header (all pages)
 │   │   ├── Footer.tsx                # Footer (all pages)
-│   │   ├── Breadcrumb.tsx            # Breadcrumb navigation
+│   │   ├── PageHero.tsx              # Generic hero for all pages except home (with breadcrumb + bg animation)
+│   │   ├── SocialLinks.tsx           # Social media links component
 │   │   └── ThemeToggle.tsx           # Dark/light mode toggle
 │   │
 │   ├── home/
@@ -170,6 +171,7 @@ src/
 │   ├── projects.ts                   # Projects mock data
 │   ├── skills.ts                     # Skills mock data
 │   ├── testimonials.ts               # Testimonials mock data
+│   ├── social.ts                     # Social media links data
 │   ├── about.ts                      # About page content
 │   ├── contact.ts                    # Contact page info
 │   └── navigation.ts                 # Navigation items
@@ -183,7 +185,115 @@ src/
     ├── project.ts                    # Project type definitions
     ├── skill.ts                      # Skill type definitions
     ├── testimonial.ts                # Testimonial types
+    ├── social.ts                     # Social link types
     └── common.ts                     # Common types
+```
+
+---
+
+## 4.5 PageHero Component (Generic Hero for Inner Pages)
+
+### Purpose
+A reusable, professional hero section for all pages except the home page, featuring:
+- **Professional Breadcrumb Navigation** - Clean, animated path indicator
+- **Page Title & Subtitle** - Dynamic content per page
+- **Animated Background** - Subtle, professional gradient animation
+- **Social Media Links** - Optional floating social icons
+
+### PageHero Design Specifications
+
+#### Visual Structure
+```
+┌─────────────────────────────────────────────────────────────┐
+│  ░░░░░░░░░░░░░░░ ANIMATED GRADIENT BG ░░░░░░░░░░░░░░░░░░░░  │
+│                                                             │
+│     Home > Projects > E-Commerce Platform   (Breadcrumb)    │
+│                                                             │
+│              ████ PAGE TITLE ████                          │
+│           Subtitle or description text                      │
+│                                                             │
+│     [in] [f] [ig] [gh] [be]               (Social Icons)    │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### Animation Details
+```typescript
+// Background Animation
+- Gradient mesh with 3-4 color stops
+- Subtle position shift (translateX/Y: ±5%)
+- Duration: 8-12 seconds infinite loop
+- CSS-only for performance (no JS)
+
+// Breadcrumb Animation
+- Fade-in from left with stagger (0.1s per item)
+- Chevron separator pulse on hover
+- Active item subtle glow effect
+
+// Title Animation
+- Fade-in + slide up (y: 20px → 0)
+- Duration: 0.6s with spring easing
+- Subtitle delays by 0.2s
+
+// Social Icons Animation
+- Staggered entrance from bottom
+- Hover: scale(1.1) + color shift
+- Tooltip on hover (optional)
+```
+
+#### Props Interface
+```typescript
+interface PageHeroProps {
+  title: string
+  subtitle?: string
+  breadcrumbs: BreadcrumbItem[]
+  showSocialLinks?: boolean
+  backgroundVariant?: 'default' | 'subtle' | 'vibrant'
+  className?: string
+}
+
+interface BreadcrumbItem {
+  label: string
+  href?: string
+  isActive?: boolean
+}
+```
+
+#### Color Variants (Dark/Light Mode)
+```css
+/* Light Mode */
+--hero-bg-start: hsl(220 60% 98%)
+--hero-bg-mid: hsl(240 50% 96%)
+--hero-bg-end: hsl(260 40% 97%)
+--hero-gradient-accent: hsl(var(--primary) / 0.1)
+
+/* Dark Mode */
+--hero-bg-start: hsl(220 30% 8%)
+--hero-bg-mid: hsl(240 25% 10%)
+--hero-bg-end: hsl(260 20% 12%)
+--hero-gradient-accent: hsl(var(--primary) / 0.15)
+```
+
+### Social Links Configuration
+```typescript
+// types/social.ts
+interface SocialLink {
+  id: string
+  platform: 'linkedin' | 'github' | 'twitter' | 'instagram' | 'facebook' | 'dribbble' | 'behance' | 'youtube' | 'pinterest'
+  url: string
+  label: string
+  icon: string // Lucide icon name or custom
+}
+
+// data/social.ts
+export const socialLinks: SocialLink[] = [
+  { id: '1', platform: 'linkedin', url: 'https://linkedin.com/in/username', label: 'LinkedIn', icon: 'Linkedin' },
+  { id: '2', platform: 'github', url: 'https://github.com/username', label: 'GitHub', icon: 'Github' },
+  { id: '3', platform: 'twitter', url: 'https://twitter.com/username', label: 'Twitter/X', icon: 'Twitter' },
+  { id: '4', platform: 'instagram', url: 'https://instagram.com/username', label: 'Instagram', icon: 'Instagram' },
+  { id: '5', platform: 'dribbble', url: 'https://dribbble.com/username', label: 'Dribbble', icon: 'Dribbble' },
+  { id: '6', platform: 'behance', url: 'https://behance.net/username', label: 'Behance', icon: 'Behance' },
+]
 ```
 
 ---
