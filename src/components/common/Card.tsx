@@ -6,16 +6,17 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/cn'
 
 const cardVariants = cva(
-  // Base styles
-  'rounded-lg border bg-card text-card-foreground transition-all duration-300',
+  // Base styles with enhanced transitions
+  'rounded-xl border bg-card text-card-foreground transition-all duration-300 ease-out',
   {
     variants: {
       variant: {
         default: 'border-border shadow-sm',
-        elevated: 'border-transparent shadow-md hover:shadow-lg',
-        outline: 'border-border bg-transparent',
+        elevated: 'border-transparent shadow-lg hover:shadow-xl',
+        outline: 'border-border bg-transparent hover:border-primary/50',
         ghost: 'border-transparent bg-transparent',
-        glass: 'border-border/50 bg-card/80 backdrop-blur-sm',
+        glass: 'border-border/30 bg-card/70 backdrop-blur-md shadow-lg',
+        gradient: 'border-transparent bg-gradient-to-br from-card via-card to-card/80 shadow-lg',
       },
       padding: {
         none: 'p-0',
@@ -25,9 +26,10 @@ const cardVariants = cva(
       },
       hover: {
         none: '',
-        lift: 'hover:-translate-y-1 hover:shadow-lg',
-        scale: 'hover:scale-[1.02]',
-        glow: 'hover:ring-2 hover:ring-primary/20',
+        lift: 'hover:-translate-y-2 hover:shadow-2xl',
+        scale: 'hover:scale-[1.03] hover:shadow-xl',
+        glow: 'hover:ring-2 hover:ring-primary/30 hover:shadow-lg hover:shadow-primary/10',
+        border: 'hover:border-primary/50 hover:shadow-lg',
       },
     },
     defaultVariants: {

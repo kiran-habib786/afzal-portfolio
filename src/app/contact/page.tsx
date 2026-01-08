@@ -332,6 +332,29 @@ export default function ContactPage() {
               <SocialLinks iconSize="lg" variant="default" />
             </div>
 
+            {/* Download CV */}
+            <Card variant="elevated" className="overflow-hidden">
+              <CardContent className="p-6">
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent">
+                    <LucideIcons.FileText className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="flex-1 text-center sm:text-left">
+                    <h3 className="font-semibold">Download My Resume</h3>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Get a detailed overview of my experience and skills
+                    </p>
+                  </div>
+                  <Button asChild variant="gradient" size="lg" className="w-full sm:w-auto">
+                    <a href="/cv/resume.pdf" download="Afzal-Resume.pdf">
+                      <LucideIcons.Download className="mr-2 h-5 w-5" />
+                      Download CV
+                    </a>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* FAQ */}
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">Frequently Asked</h3>

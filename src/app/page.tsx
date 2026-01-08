@@ -1,12 +1,14 @@
 'use client'
 
 import { lazy, Suspense } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
+import { useRef } from 'react'
 import { ArrowRight, Download, Star, Quote } from 'lucide-react'
 import { Button, Card, CardContent, Badge, Skeleton } from '@/components/common'
 import { SocialLinks } from '@/components/layout'
 import { staggerContainer, staggerItem, heroTextReveal, heroCharacter } from '@/lib/animations'
+import { floatingOrb, heroWordReveal, heroWord, heroSubtitle, heroCTA, springs } from '@/lib/animations-pro'
 import { aboutContent } from '@/data/about'
 import { getFeaturedProjects } from '@/data/projects'
 import { skills } from '@/data/skills'
@@ -14,22 +16,24 @@ import { testimonials } from '@/data/testimonials'
 import { SKILL_CATEGORY_COLORS } from '@/lib/constants'
 import type { SkillCategory } from '@/types/skill'
 
-// Split text into characters for animation
-function AnimatedText({ text, className }: { text: string; className?: string }) {
+// Split text into words for animation
+function AnimatedWords({ text, className }: { text: string; className?: string }) {
+  const words = text.split(' ')
   return (
     <motion.span
-      variants={heroTextReveal}
+      variants={heroWordReveal}
       initial="hidden"
       animate="visible"
       className={className}
     >
-      {text.split('').map((char, index) => (
+      {words.map((word, index) => (
         <motion.span
           key={index}
-          variants={heroCharacter}
-          className="inline-block"
+          variants={heroWord}
+          className="inline-block mr-[0.25em]"
+          style={{ perspective: 1000 }}
         >
-          {char === ' ' ? '\u00A0' : char}
+          {word}
         </motion.span>
       ))}
     </motion.span>
@@ -37,57 +41,61 @@ function AnimatedText({ text, className }: { text: string; className?: string })
 }
 
 export default function HomePage() {
+  const heroRef = useRef<HTMLElement>(null)
+  
+  // Parallax effect
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 150])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-screen overflow-hidden">
+      <section ref={heroRef} className="relative min-h-screen overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0 -z-10 hero-gradient-bg">
-          {/* Gradient orbs */}
+          {/* Primary gradient orb */}
           <motion.div
-            className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-primary/20 blur-3xl"
-            animate={{
-              x: [0, 50, 0],
-              y: [0, -30, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
+            className="absolute -left-32 -top-32 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-primary/30 to-primary/5 blur-3xl"
+            variants={floatingOrb(0)}
+            initial="initial"
+            animate="animate"
           />
+          {/* Accent gradient orb */}
           <motion.div
-            className="absolute -right-32 top-1/3 h-[500px] w-[500px] rounded-full bg-accent/15 blur-3xl"
-            animate={{
-              x: [0, -30, 0],
-              y: [0, 50, 0],
-              scale: [1, 1.15, 1],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
+            className="absolute -right-32 top-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-accent/25 to-accent/5 blur-3xl"
+            variants={floatingOrb(2)}
+            initial="initial"
+            animate="animate"
           />
+          {/* Secondary orb */}
           <motion.div
-            className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-primary/10 blur-3xl"
-            animate={{
-              x: [0, 20, 0],
-              y: [0, -20, 0],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
+            className="absolute bottom-0 left-1/3 h-80 w-80 rounded-full bg-gradient-to-br from-primary/15 to-transparent blur-3xl"
+            variants={floatingOrb(4)}
+            initial="initial"
+            animate="animate"
+          />
+          {/* Tertiary orb */}
+          <motion.div
+            className="absolute -bottom-20 right-1/4 h-64 w-64 rounded-full bg-gradient-to-br from-accent/20 to-transparent blur-3xl"
+            variants={floatingOrb(3)}
+            initial="initial"
+            animate="animate"
           />
           {/* Grid pattern */}
           <div className="absolute inset-0 hero-grid-pattern opacity-30" />
+          {/* Radial gradient overlay */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-transparent to-background/80" />
         </div>
 
         {/* Hero Content */}
-        <div className="container-custom flex min-h-screen flex-col items-center justify-center pt-20">
+        <motion.div 
+          style={{ y: heroY, opacity: heroOpacity }}
+          className="container-custom flex min-h-screen flex-col items-center justify-center pt-20"
+        >
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -95,32 +103,41 @@ export default function HomePage() {
             className="mx-auto max-w-4xl text-center"
           >
             {/* Tagline */}
-            <motion.p
-              variants={staggerItem}
-              className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary md:text-base"
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-6"
             >
-              {aboutContent.tagline}
-            </motion.p>
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary backdrop-blur-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
+                </span>
+                {aboutContent.tagline}
+              </span>
+            </motion.div>
 
-            {/* Main Heading */}
-            <motion.h1
-              variants={staggerItem}
-              className="mb-6 text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl"
-            >
-              <AnimatedText text={aboutContent.intro} />
-            </motion.h1>
+            {/* Main Heading with word reveal */}
+            <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl">
+              <AnimatedWords text={aboutContent.intro} />
+            </h1>
 
             {/* Description */}
             <motion.p
-              variants={staggerItem}
-              className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground md:text-xl"
+              variants={heroSubtitle}
+              initial="hidden"
+              animate="visible"
+              className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground md:text-xl leading-relaxed"
             >
               {aboutContent.summary}
             </motion.p>
 
             {/* CTA Buttons */}
             <motion.div
-              variants={staggerItem}
+              variants={heroCTA}
+              initial="hidden"
+              animate="visible"
               className="flex flex-col items-center justify-center gap-4 sm:flex-row"
             >
               <Link href="/projects">
@@ -185,7 +202,7 @@ export default function HomePage() {
               </div>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Featured Projects Section */}

@@ -8,8 +8,9 @@ import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import { ThemeToggle } from './ThemeToggle'
 import { SocialLinks } from './SocialLinks'
+import { ColorThemeSwitcher } from '@/components/common'
 import { getMainNav } from '@/data/navigation'
-import { fadeIn, staggerContainer, staggerItem } from '@/lib/animations'
+import { fadeIn,staggerContainer, staggerItem } from '@/lib/animations'
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -97,13 +98,16 @@ export function Header() {
             </div>
 
             {/* Desktop Actions */}
-            <div className="hidden items-center gap-4 md:flex">
+            <div className="hidden items-center gap-3 md:flex">
               <SocialLinks iconSize="sm" variant="muted" />
+              <div className="h-6 w-px bg-border" />
+              <ColorThemeSwitcher />
               <ThemeToggle />
             </div>
 
             {/* Mobile Menu Button */}
             <div className="flex items-center gap-2 md:hidden">
+              <ColorThemeSwitcher />
               <ThemeToggle />
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
