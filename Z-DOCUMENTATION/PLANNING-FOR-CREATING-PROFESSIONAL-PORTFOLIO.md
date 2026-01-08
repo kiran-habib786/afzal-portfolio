@@ -15,13 +15,13 @@ npx create-next-app@latest my-radix-app --typescript --tailwind --eslint --app -
 
 4) skills page with all professional/modern skills cards and with detail page 
 5) project page with all professional/modern projects cards and with detail page 
-6) contact page with professional/modern contact us page (use the free library to send/recieve email from contact page (use Web3Forms if best ))
-
+6) contact page with professional/modern contact us page (use the free library to send/recieve email from contact page (use Web3Forms if best ) with a button to download the cv(pdf file)
+7) and all the sections of pages should be handled in this way that a professional and pro level content can be adjasted in the easy way 
 7) there should be light and dark mode which should be globally managed using the local storage
 8) there should be professional and modern and nice/awesom smooth animation(smooth scroll,hero-section animation but not over )
 9) for all other pages except home , there should be professional and generic bred-crumb section with nice and professional animation 
 
-10) there should be professional(not over look animation anymore but smooth and professional) animations + smooth transitions, buttery-smooth scrolling site-wide, including hero parallax,For advanced, pro-level effects  and you should use the best animation libraries like (Framer Motion,GSAP,Lenis)
+10) there should be professional(not over look animation anymore but smooth and professional and pro level) animations + smooth transitions, buttery-smooth scrolling site-wide, including hero parallax,For advanced, pro-level effects  and you should use the best animation libraries like (Framer Motion,GSAP,Lenis)
 11) this is the example of project and skills you can also add some other important fields also 
   "projects": [
     {
