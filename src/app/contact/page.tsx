@@ -336,8 +336,8 @@ export default function ContactPage() {
             <Card variant="elevated" className="overflow-hidden">
               <CardContent className="p-6">
                 <div className="flex flex-col sm:flex-row items-center gap-4">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent">
-                    <LucideIcons.FileText className="h-8 w-8 text-white" />
+                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10">
+                    <LucideIcons.FileText className="h-7 w-7 text-primary" />
                   </div>
                   <div className="flex-1 text-center sm:text-left">
                     <h3 className="font-semibold">Download My Resume</h3>
@@ -345,7 +345,7 @@ export default function ContactPage() {
                       Get a detailed overview of my experience and skills
                     </p>
                   </div>
-                  <Button asChild variant="gradient" size="lg" className="w-full sm:w-auto">
+                  <Button asChild variant="default" size="lg" className="w-full sm:w-auto">
                     <a href="/cv/resume.pdf" download="Afzal-Resume.pdf">
                       <LucideIcons.Download className="mr-2 h-5 w-5" />
                       Download CV

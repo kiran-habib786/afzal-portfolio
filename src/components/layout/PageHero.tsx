@@ -67,40 +67,29 @@ export function PageHero({
         className
       )}
     >
-      {/* Enhanced animated background elements */}
+      {/* Pro-level subtle background elements */}
       <div className="absolute inset-0 -z-10">
-        {/* Primary gradient orb */}
+        {/* Primary gradient orb - very subtle */}
         <motion.div
-          className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 blur-3xl"
+          className="absolute -left-20 -top-20 h-[400px] w-[400px] rounded-full bg-gradient-to-br from-primary/[0.06] via-primary/[0.02] to-transparent blur-[80px]"
           variants={floatingOrb(0)}
           initial="initial"
           animate="animate"
         />
         
-        {/* Accent gradient orb */}
+        {/* Accent gradient orb - subtle */}
         <motion.div
-          className="absolute -right-32 top-1/3 h-[28rem] w-[28rem] rounded-full bg-gradient-to-br from-accent/20 to-accent/5 blur-3xl"
+          className="absolute -right-20 top-1/4 h-[350px] w-[350px] rounded-full bg-gradient-to-bl from-accent/[0.04] via-accent/[0.01] to-transparent blur-[80px]"
           variants={floatingOrb(2)}
           initial="initial"
           animate="animate"
         />
         
-        {/* Secondary orb */}
-        <motion.div
-          className="absolute left-1/3 -bottom-20 h-72 w-72 rounded-full bg-gradient-to-br from-primary/10 to-transparent blur-3xl"
-          variants={floatingOrb(4)}
-          initial="initial"
-          animate="animate"
-        />
+        {/* Grid pattern overlay - refined */}
+        <div className="absolute inset-0 hero-grid-pattern" />
         
-        {/* Mesh gradient overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
-        
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 hero-grid-pattern opacity-40" />
-        
-        {/* Noise texture for depth */}
-        <div className="absolute inset-0 opacity-[0.015] mix-blend-overlay" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
+        {/* Vignette for depth */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,hsl(var(--background)/0.5)_100%)]" />
       </div>
 
       <motion.div 

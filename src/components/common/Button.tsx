@@ -5,27 +5,27 @@ import { Loader2 } from 'lucide-react'
 import { cn } from '@/lib/cn'
 
 const buttonVariants = cva(
-  // Base styles with enhanced micro-interactions
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.97] hover:-translate-y-0.5',
+  // Base styles with refined micro-interactions
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]',
   {
     variants: {
       variant: {
         default:
-          'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg hover:shadow-primary/25',
+          'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow-md',
         secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm hover:shadow-md',
+          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         outline:
-          'border-2 border-input bg-background hover:bg-accent hover:text-accent-foreground hover:border-accent',
+          'border border-input bg-background hover:bg-muted hover:border-muted-foreground/20',
         ghost:
-          'hover:bg-accent hover:text-accent-foreground',
+          'hover:bg-muted hover:text-foreground',
         link:
-          'text-primary underline-offset-4 hover:underline hover:translate-y-0',
+          'text-primary underline-offset-4 hover:underline',
         destructive:
-          'bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-md hover:shadow-lg hover:shadow-destructive/25',
+          'bg-destructive text-destructive-foreground hover:bg-destructive/90',
         gradient:
-          'bg-gradient-to-r from-primary via-primary to-accent text-primary-foreground shadow-lg hover:shadow-xl hover:shadow-primary/30 bg-[length:200%_100%] hover:bg-[position:100%_0] transition-[background-position,transform,box-shadow] duration-500',
+          'bg-primary text-primary-foreground shadow-sm hover:shadow-md hover:bg-primary/90',
         glow:
-          'bg-primary text-primary-foreground shadow-[0_0_20px_rgba(var(--primary)/0.5)] hover:shadow-[0_0_30px_rgba(var(--primary)/0.7)]',
+          'bg-primary text-primary-foreground shadow-sm hover:shadow-md',
       },
       size: {
         default: 'h-10 px-5 py-2',

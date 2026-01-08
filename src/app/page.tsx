@@ -55,40 +55,28 @@ export default function HomePage() {
     <>
       {/* Hero Section */}
       <section ref={heroRef} className="relative min-h-screen overflow-hidden">
-        {/* Animated Background */}
+        {/* Animated Background - Professional & Subtle */}
         <div className="absolute inset-0 -z-10 hero-gradient-bg">
-          {/* Primary gradient orb */}
+          {/* Primary gradient orb - very subtle */}
           <motion.div
-            className="absolute -left-32 -top-32 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-primary/30 to-primary/5 blur-3xl"
+            className="absolute -left-20 -top-20 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-primary/[0.07] via-primary/[0.03] to-transparent blur-[100px]"
             variants={floatingOrb(0)}
             initial="initial"
             animate="animate"
           />
-          {/* Accent gradient orb */}
+          {/* Accent gradient orb - subtle */}
           <motion.div
-            className="absolute -right-32 top-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-accent/25 to-accent/5 blur-3xl"
+            className="absolute -right-20 top-1/3 h-[500px] w-[500px] rounded-full bg-gradient-to-bl from-accent/[0.05] via-accent/[0.02] to-transparent blur-[100px]"
             variants={floatingOrb(2)}
             initial="initial"
             animate="animate"
           />
-          {/* Secondary orb */}
-          <motion.div
-            className="absolute bottom-0 left-1/3 h-80 w-80 rounded-full bg-gradient-to-br from-primary/15 to-transparent blur-3xl"
-            variants={floatingOrb(4)}
-            initial="initial"
-            animate="animate"
-          />
-          {/* Tertiary orb */}
-          <motion.div
-            className="absolute -bottom-20 right-1/4 h-64 w-64 rounded-full bg-gradient-to-br from-accent/20 to-transparent blur-3xl"
-            variants={floatingOrb(3)}
-            initial="initial"
-            animate="animate"
-          />
-          {/* Grid pattern */}
-          <div className="absolute inset-0 hero-grid-pattern opacity-30" />
-          {/* Radial gradient overlay */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-transparent to-background/80" />
+          {/* Bottom ambient light */}
+          <div className="absolute bottom-0 left-0 right-0 h-[400px] bg-gradient-to-t from-primary/[0.02] to-transparent" />
+          {/* Grid pattern - subtle */}
+          <div className="absolute inset-0 hero-grid-pattern" />
+          {/* Vignette overlay for depth */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,hsl(var(--background)/0.4)_70%,hsl(var(--background))_100%)]" />
         </div>
 
         {/* Hero Content */}
@@ -109,9 +97,9 @@ export default function HomePage() {
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="mb-6"
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-muted/50 px-4 py-2 text-sm font-medium text-muted-foreground backdrop-blur-sm">
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/80 opacity-60"></span>
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
                 </span>
                 {aboutContent.tagline}
