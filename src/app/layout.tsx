@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from 'next'
+import { Suspense } from 'react'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/providers'
 import { Header, Footer } from '@/components/layout'
+import { NavigationProgress } from '@/components/common'
 import { siteConfig } from '@/data/about'
 
 const geistSans = Geist({
@@ -86,6 +88,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Suspense fallback={null}>
+            <NavigationProgress />
+          </Suspense>
           <div className="relative flex min-h-screen flex-col">
             <Header />
             <main className="flex-1">{children}</main>
