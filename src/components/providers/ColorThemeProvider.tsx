@@ -1,7 +1,7 @@
 'use client'
 
+import { ThemeName, themes, ACTIVE_THEME, ThemeColors } from '@/lib/themes'
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
-import { ThemeName, themes, ACTIVE_THEME } from '@/lib/themes'
 
 interface ColorThemeContextType {
   colorTheme: ThemeName
@@ -11,6 +11,23 @@ interface ColorThemeContextType {
 const ColorThemeContext = createContext<ColorThemeContextType | undefined>(undefined)
 
 const STORAGE_KEY = 'portfolio-color-theme'
+
+// Apply theme CSS variables
+const applyThemeColors = (colors: ThemeColors) => {
+  const root = document.documentElement
+  root.style.setProperty('--primary', colors.primary)
+  root.style.setProperty('--primary-foreground', colors.primaryForeground)
+  root.style.setProperty('--accent', colors.accent)
+  root.style.setProperty('--accent-foreground', colors.accentForeground)
+  root.style.setProperty('--background', colors.background)
+  root.style.setProperty('--foreground', colors.foreground)
+  root.style.setProperty('--muted', colors.muted)
+  root.style.setProperty('--muted-foreground', colors.mutedForeground)
+  root.style.setProperty('--card', colors.card)
+  root.style.setProperty('--card-foreground', colors.cardForeground)
+  root.style.setProperty('--border', colors.border)
+  root.style.setProperty('--ring', colors.ring)
+}
 
 export function ColorThemeProvider({ children }: { children: ReactNode }) {
   const [colorTheme, setColorThemeState] = useState<ThemeName>(ACTIVE_THEME)
@@ -34,13 +51,7 @@ export function ColorThemeProvider({ children }: { children: ReactNode }) {
     const isDark = root.classList.contains('dark')
     const colors = isDark ? theme.dark : theme.light
 
-    // Apply color variables
-    root.style.setProperty('--primary', colors.primary)
-    root.style.setProperty('--primary-foreground', colors.primaryForeground)
-    root.style.setProperty('--accent', colors.accent)
-    root.style.setProperty('--accent-foreground', colors.accentForeground)
-    root.style.setProperty('--hero-gradient-accent', colors.heroGradientAccent)
-    root.style.setProperty('--ring', colors.primary)
+    applyThemeColors(colors)
 
     // Store preference
     localStorage.setItem(STORAGE_KEY, colorTheme)
@@ -58,12 +69,7 @@ export function ColorThemeProvider({ children }: { children: ReactNode }) {
           const isDark = root.classList.contains('dark')
           const colors = isDark ? theme.dark : theme.light
 
-          root.style.setProperty('--primary', colors.primary)
-          root.style.setProperty('--primary-foreground', colors.primaryForeground)
-          root.style.setProperty('--accent', colors.accent)
-          root.style.setProperty('--accent-foreground', colors.accentForeground)
-          root.style.setProperty('--hero-gradient-accent', colors.heroGradientAccent)
-          root.style.setProperty('--ring', colors.primary)
+          applyThemeColors(colors)
         }
       })
     })

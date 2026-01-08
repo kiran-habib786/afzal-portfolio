@@ -3,18 +3,26 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { Palette, Check } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
-import { getAllThemes, ThemeName, ACTIVE_THEME } from '@/lib/themes'
-
-const themeColorPreviews: Record<ThemeName, string> = {
-  blue: 'bg-blue-500',
-  purple: 'bg-purple-500',
-  green: 'bg-green-500',
-  orange: 'bg-orange-500',
-  rose: 'bg-rose-500',
-  cyan: 'bg-cyan-500',
-}
+import { getAllThemes, ThemeName, ACTIVE_THEME, Theme, ThemeColors } from '@/lib/themes'
 
 const STORAGE_KEY = 'portfolio-color-theme'
+
+// Apply theme CSS variables
+const applyThemeColors = (colors: ThemeColors) => {
+  const root = document.documentElement
+  root.style.setProperty('--primary', colors.primary)
+  root.style.setProperty('--primary-foreground', colors.primaryForeground)
+  root.style.setProperty('--accent', colors.accent)
+  root.style.setProperty('--accent-foreground', colors.accentForeground)
+  root.style.setProperty('--background', colors.background)
+  root.style.setProperty('--foreground', colors.foreground)
+  root.style.setProperty('--muted', colors.muted)
+  root.style.setProperty('--muted-foreground', colors.mutedForeground)
+  root.style.setProperty('--card', colors.card)
+  root.style.setProperty('--card-foreground', colors.cardForeground)
+  root.style.setProperty('--border', colors.border)
+  root.style.setProperty('--ring', colors.ring)
+}
 
 export function ColorThemeSwitcher() {
   const [colorTheme, setColorTheme] = useState<ThemeName>(ACTIVE_THEME)
@@ -23,14 +31,43 @@ export function ColorThemeSwitcher() {
   const containerRef = useRef<HTMLDivElement>(null)
   const themes = getAllThemes()
 
+  // Apply theme helper
+  const applyTheme = (theme: Theme) => {
+    const root = document.documentElement
+    const isDark = root.classList.contains('dark')
+    const colors = isDark ? theme.dark : theme.light
+    applyThemeColors(colors)
+  }
+
   // Initialize from localStorage
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY) as ThemeName | null
-    if (stored && themes.find(t => t.name === stored)) {
-      setColorTheme(stored)
+    if (stored) {
+      const foundTheme = themes.find((t: Theme) => t.name === stored)
+      if (foundTheme) {
+        setColorTheme(stored)
+        applyTheme(foundTheme)
+      }
     }
     setMounted(true)
-  }, [themes])
+  }, [])
+
+  // Listen for dark/light mode changes and reapply theme
+  useEffect(() => {
+    if (!mounted) return
+    
+    const observer = new MutationObserver(() => {
+      const foundTheme = themes.find((t: Theme) => t.name === colorTheme)
+      if (foundTheme) applyTheme(foundTheme)
+    })
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    })
+
+    return () => observer.disconnect()
+  }, [colorTheme, mounted])
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -49,18 +86,9 @@ export function ColorThemeSwitcher() {
     localStorage.setItem(STORAGE_KEY, themeName)
     
     // Apply theme colors
-    const theme = themes.find(t => t.name === themeName)
-    if (theme) {
-      const root = document.documentElement
-      const isDark = root.classList.contains('dark')
-      const colors = isDark ? theme.dark : theme.light
-
-      root.style.setProperty('--primary', colors.primary)
-      root.style.setProperty('--primary-foreground', colors.primaryForeground)
-      root.style.setProperty('--accent', colors.accent)
-      root.style.setProperty('--accent-foreground', colors.accentForeground)
-      root.style.setProperty('--hero-gradient-accent', colors.heroGradientAccent)
-      root.style.setProperty('--ring', colors.primary)
+    const foundTheme = themes.find((t: Theme) => t.name === themeName)
+    if (foundTheme) {
+      applyTheme(foundTheme)
     }
     
     setIsOpen(false)
@@ -93,29 +121,35 @@ export function ColorThemeSwitcher() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="absolute right-0 top-full mt-2 z-50 w-48 rounded-lg border bg-popover p-2 shadow-lg"
+            className="absolute right-0 top-full mt-2 z-50 w-56 max-h-80 overflow-y-auto rounded-xl border bg-popover p-2 shadow-xl"
           >
             <div className="mb-2 px-2 py-1.5">
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                 Color Theme
               </p>
             </div>
-            <div className="space-y-1">
-              {themes.map((theme) => (
+            <div className="space-y-0.5">
+              {themes.map((theme: Theme) => (
                 <motion.button
                   key={theme.name}
-                  whileHover={{ x: 4 }}
+                  whileHover={{ x: 2 }}
                   onClick={() => handleThemeChange(theme.name)}
-                  className={`w-full flex items-center gap-3 rounded-md px-2 py-2 text-sm transition-colors ${
+                  className={`w-full flex items-center gap-3 rounded-lg px-2.5 py-2.5 text-sm transition-colors ${
                     colorTheme === theme.name
-                      ? 'bg-muted text-foreground'
+                      ? 'bg-primary/10 text-foreground'
                       : 'hover:bg-muted/50 text-foreground/80'
                   }`}
                 >
-                  <span className={`h-4 w-4 rounded-full ${themeColorPreviews[theme.name]}`} />
-                  <span className="flex-1 text-left">{theme.label}</span>
+                  <span 
+                    className="h-4 w-4 rounded-full ring-1 ring-border" 
+                    style={{ backgroundColor: theme.preview }}
+                  />
+                  <div className="flex-1 text-left">
+                    <span className="block font-medium">{theme.label}</span>
+                    <span className="block text-xs text-muted-foreground">{theme.description}</span>
+                  </div>
                   {colorTheme === theme.name && (
-                    <Check className="h-4 w-4 text-primary" />
+                    <Check className="h-4 w-4 text-primary shrink-0" />
                   )}
                 </motion.button>
               ))}
