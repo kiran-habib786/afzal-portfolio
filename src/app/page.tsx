@@ -55,123 +55,190 @@ export default function HomePage() {
     <>
       {/* Hero Section */}
       <section ref={heroRef} className="relative min-h-screen overflow-hidden">
-        {/* Animated Background - Professional & Subtle */}
-        <div className="absolute inset-0 -z-10 hero-gradient-bg">
-          {/* Primary gradient orb - very subtle */}
+        {/* Pro-Level Background with Ambient Glow */}
+        <div className="absolute inset-0 -z-10">
+          {/* Base dark gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background" />
+          
+          {/* Main hero glow - positioned to left where content is */}
+          <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-primary/[0.08] rounded-full blur-[150px]" />
+          
+          {/* Secondary ambient glow - top right */}
           <motion.div
-            className="absolute -left-20 -top-20 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-primary/[0.07] via-primary/[0.03] to-transparent blur-[100px]"
-            variants={floatingOrb(0)}
-            initial="initial"
-            animate="animate"
+            className="absolute -top-20 right-0 w-[500px] h-[500px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, hsl(var(--primary) / 0.1) 0%, transparent 70%)',
+            }}
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.6, 0.9, 0.6],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
           />
-          {/* Accent gradient orb - subtle */}
+          
+          {/* Accent glow - bottom left */}
           <motion.div
-            className="absolute -right-20 top-1/3 h-[500px] w-[500px] rounded-full bg-gradient-to-bl from-accent/[0.05] via-accent/[0.02] to-transparent blur-[100px]"
-            variants={floatingOrb(2)}
-            initial="initial"
-            animate="animate"
+            className="absolute bottom-20 -left-20 w-[400px] h-[400px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, hsl(var(--primary) / 0.06) 0%, transparent 70%)',
+            }}
+            animate={{
+              scale: [1, 1.15, 1],
+              opacity: [0.5, 0.8, 0.5],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: 2,
+            }}
           />
-          {/* Bottom ambient light */}
-          <div className="absolute bottom-0 left-0 right-0 h-[400px] bg-gradient-to-t from-primary/[0.02] to-transparent" />
-          {/* Grid pattern - subtle */}
-          <div className="absolute inset-0 hero-grid-pattern" />
-          {/* Vignette overlay for depth */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,hsl(var(--background)/0.4)_70%,hsl(var(--background))_100%)]" />
+          
+          {/* Gradient overlay for depth */}
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+          
+          {/* Subtle grid pattern */}
+          <div className="absolute inset-0 hero-grid-pattern opacity-30" />
         </div>
 
         {/* Hero Content */}
         <motion.div 
           style={{ y: heroY, opacity: heroOpacity }}
-          className="container-custom flex min-h-screen flex-col items-center justify-center pt-20"
+          className="container-custom flex min-h-screen items-center pt-20 pb-16"
         >
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-            className="mx-auto max-w-4xl text-center"
-          >
-            {/* Tagline */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
+            {/* Left Content */}
             <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-6"
-            >
-              <span className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-muted/50 px-4 py-2 text-sm font-medium text-muted-foreground backdrop-blur-sm">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/80 opacity-60"></span>
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
-                </span>
-                {aboutContent.tagline}
-              </span>
-            </motion.div>
-
-            {/* Main Heading with word reveal */}
-            <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl">
-              <AnimatedWords text={aboutContent.intro} />
-            </h1>
-
-            {/* Description */}
-            <motion.p
-              variants={heroSubtitle}
+              variants={staggerContainer}
               initial="hidden"
               animate="visible"
-              className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground md:text-xl leading-relaxed"
+              className="text-left"
             >
-              {aboutContent.summary}
-            </motion.p>
+              {/* Welcome Tag */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="text-primary/80 text-sm md:text-base font-medium mb-6 tracking-wide"
+              >
+                Welcome to my portfolio!
+              </motion.p>
 
-            {/* CTA Buttons */}
-            <motion.div
-              variants={heroCTA}
-              initial="hidden"
-              animate="visible"
-              className="flex flex-col items-center justify-center gap-4 sm:flex-row"
-            >
-              <Link href="/projects">
-                <Button size="lg" className="group">
-                  View My Work
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-              <Link href="/resume/afzal-resume.pdf" download>
-                <Button size="lg" variant="outline">
-                  <Download className="mr-2 h-4 w-4" />
-                  Download CV
-                </Button>
-              </Link>
-            </motion.div>
-
-            {/* Social Links */}
-            <motion.div
-              variants={staggerItem}
-              className="mt-12 flex justify-center"
-            >
-              <SocialLinks iconSize="lg" variant="muted" />
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div
-              variants={staggerItem}
-              className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4"
-            >
-              {aboutContent.highlights.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  className="text-center"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
+              {/* Main Heading */}
+              <h1 className="mb-6">
+                <motion.span
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="block text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-foreground"
                 >
-                  <p className="text-3xl font-bold text-primary md:text-4xl">
-                    {stat.value}
-                  </p>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {stat.label}
-                  </p>
-                </motion.div>
-              ))}
+                  Hello, my
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="block text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-foreground"
+                >
+                  name&apos;s{' '}
+                  <span className="relative inline-block text-primary">
+                    Afzal
+                    {/* Glow effect behind name */}
+                    <motion.span 
+                      className="absolute -inset-x-4 -inset-y-2 blur-2xl bg-primary/40 -z-10 rounded-lg"
+                      animate={{ opacity: [0.4, 0.6, 0.4] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                    />
+                  </span>
+                  <span className="text-primary">.</span>
+                </motion.span>
+              </h1>
+
+              {/* Description */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="mb-8 max-w-lg text-base md:text-lg text-muted-foreground leading-relaxed"
+              >
+                {aboutContent.summary}
+              </motion.p>
+
+              {/* CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="flex flex-wrap items-center gap-4"
+              >
+                {/* Primary CTA with Glow */}
+                <Link href="/cv/resume.pdf" download>
+                  <Button 
+                    size="lg" 
+                    className="relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 shadow-[0_0_30px_-5px_hsl(var(--primary)/0.5)] hover:shadow-[0_0_40px_-5px_hsl(var(--primary)/0.7)] transition-all duration-300"
+                  >
+                    Download cv
+                  </Button>
+                </Link>
+                
+                {/* Secondary CTA */}
+                <Link href="/projects">
+                  <Button 
+                    size="lg" 
+                    variant="outline"
+                    className="group border-border hover:border-foreground/30 hover:bg-muted/50 font-semibold px-8 transition-all duration-300"
+                  >
+                    See my work
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </Link>
+              </motion.div>
+
+              {/* Social Links */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mt-10"
+              >
+                <SocialLinks iconSize="default" variant="muted" />
+              </motion.div>
             </motion.div>
-          </motion.div>
+
+            {/* Right Side - Stats Cards */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="hidden lg:block"
+            >
+              <div className="grid grid-cols-2 gap-4">
+                {aboutContent.highlights.map((stat, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
+                    className="group relative rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-6 transition-all duration-300 hover:border-primary/40 hover:bg-card/50"
+                    whileHover={{ y: -4, scale: 1.02 }}
+                  >
+                    {/* Subtle glow on hover */}
+                    <div className="absolute inset-0 rounded-2xl bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <p className="relative text-3xl font-bold text-primary mb-1">
+                      {stat.value}
+                    </p>
+                    <p className="relative text-sm text-muted-foreground">
+                      {stat.label}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
 
           {/* Scroll indicator */}
           <motion.div

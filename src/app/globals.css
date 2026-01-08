@@ -312,60 +312,123 @@ html {
   position: relative;
 }
 
-/* Subtle top glow */
-.hero-gradient-bg::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 1200px;
-  height: 600px;
-  background: radial-gradient(
-    ellipse 60% 40% at 50% 0%,
-    hsl(var(--primary) / 0.08),
-    transparent 70%
-  );
-  pointer-events: none;
-}
-
-/* Subtle accent glow */
-.hero-gradient-bg::after {
-  content: '';
-  position: absolute;
-  bottom: 20%;
-  right: 10%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(
-    circle,
-    hsl(var(--accent) / 0.04),
-    transparent 60%
-  );
-  pointer-events: none;
-  filter: blur(60px);
-}
-
-/* Professional grid pattern - more subtle */
+/* Professional grid pattern - subtle with fade */
 .hero-grid-pattern {
   background-image: 
-    linear-gradient(hsl(var(--foreground) / 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(var(--foreground) / 0.03) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, black 20%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, black 20%, transparent 70%);
+    linear-gradient(hsl(var(--foreground) / 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--foreground) / 0.02) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 30%, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 30%, black 0%, transparent 70%);
 }
 
 /* Dot pattern - refined */
 .hero-dot-pattern {
   background-image: radial-gradient(
-    hsl(var(--foreground) / 0.05) 1px,
+    hsl(var(--foreground) / 0.04) 1px,
     transparent 1px
   );
-  background-size: 24px 24px;
-  mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 30%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 30%, transparent 70%);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 20%, transparent 70%);
+}
+
+/* ========================================
+   Glow Effects (Pro-Level)
+   ======================================== */
+
+/* Primary glow */
+.glow-primary {
+  box-shadow: 0 0 40px hsl(var(--primary) / 0.15),
+              0 0 80px hsl(var(--primary) / 0.1);
+}
+
+.glow-primary-sm {
+  box-shadow: 0 0 20px hsl(var(--primary) / 0.15);
+}
+
+.glow-primary-lg {
+  box-shadow: 0 0 60px hsl(var(--primary) / 0.2),
+              0 0 120px hsl(var(--primary) / 0.1);
+}
+
+/* Text glow */
+.text-glow {
+  text-shadow: 0 0 20px hsl(var(--primary) / 0.5),
+               0 0 40px hsl(var(--primary) / 0.3);
+}
+
+/* Button glow effect */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, 
+    hsl(var(--primary) / 0.4), 
+    transparent, 
+    hsl(var(--primary) / 0.4)
+  );
+  border-radius: inherit;
+  z-index: -1;
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-glow:hover::before {
+  opacity: 1;
+}
+
+/* Card glow on hover */
+.card-glow {
+  position: relative;
+}
+
+.card-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    hsl(var(--primary) / 0.06),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card-glow:hover::before {
+  opacity: 1;
+}
+
+/* Ambient glow background */
+.ambient-glow {
+  position: relative;
+}
+
+.ambient-glow::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    hsl(var(--primary) / 0.1) 0%,
+    transparent 60%
+  );
+  filter: blur(40px);
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* ========================================
