@@ -45,88 +45,89 @@ export default function ProjectsPage() {
         >
           {featuredProjects.slice(0, 2).map((project, index) => (
             <motion.div key={project.id} variants={staggerItem}>
-              <Card variant="elevated" hover="lift" className="h-full overflow-hidden group">
-                <CardContent className="p-0">
-                  {/* Project Image/Preview */}
-                  <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-primary/20 via-accent/10 to-primary/5">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <LucideIcons.Image className="h-16 w-16 text-muted-foreground/30" />
-                    </div>
-                    {/* Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                      <div className="flex gap-3">
-                        {project.liveUrl && (
-                          <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-                          >
-                            <LucideIcons.ExternalLink className="h-4 w-4" />
-                            Live Demo
-                          </a>
-                        )}
-                        {project.repoUrl && (
-                          <a
-                            href={project.repoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm font-medium hover:bg-muted/80"
-                          >
-                            <LucideIcons.Github className="h-4 w-4" />
-                            Code
-                          </a>
-                        )}
+              <Link href={`/projects/${project.slug}`} className="block h-full">
+                <Card variant="elevated" hover="lift" className="h-full overflow-hidden group">
+                  <CardContent className="p-0">
+                    {/* Project Image/Preview */}
+                    <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-primary/20 via-accent/10 to-primary/5">
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <LucideIcons.Image className="h-16 w-16 text-muted-foreground/30" />
+                      </div>
+                      {/* Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div className="flex gap-3">
+                          {project.liveUrl && (
+                            <span
+                              onClick={(e) => { e.preventDefault(); window.open(project.liveUrl, '_blank'); }}
+                              className="flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 cursor-pointer"
+                            >
+                              <LucideIcons.ExternalLink className="h-4 w-4" />
+                              Live Demo
+                            </span>
+                          )}
+                          {project.repoUrl && (
+                            <span
+                              onClick={(e) => { e.preventDefault(); window.open(project.repoUrl, '_blank'); }}
+                              className="flex items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm font-medium hover:bg-muted/80 cursor-pointer"
+                            >
+                              <LucideIcons.Github className="h-4 w-4" />
+                              Code
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      {/* Status Badge */}
+                      <div className="absolute right-4 top-4">
+                        <Badge className={PROJECT_STATUS_COLORS[project.status as ProjectStatus]}>
+                          {project.status}
+                        </Badge>
                       </div>
                     </div>
-                    {/* Status Badge */}
-                    <div className="absolute right-4 top-4">
-                      <Badge className={PROJECT_STATUS_COLORS[project.status as ProjectStatus]}>
-                        {project.status}
-                      </Badge>
-                    </div>
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="p-6 space-y-4">
-                    <div>
-                      <Badge variant="secondary" className="mb-2">{project.category}</Badge>
-                      <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="mt-2 text-muted-foreground line-clamp-2">
-                        {project.description}
-                      </p>
-                    </div>
                     
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.slice(0, 5).map((tech, i) => (
-                        <Badge key={i} variant="outline" className="text-xs">
-                          {tech}
-                        </Badge>
-                      ))}
-                      {project.technologies.length > 5 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{project.technologies.length - 5}
-                        </Badge>
-                      )}
-                    </div>
-                    
-                    {/* Metrics */}
-                    {project.metrics && (
-                      <div className="flex items-center gap-4 pt-2 text-sm text-muted-foreground">
-                        {project.metrics.users !== undefined && (
+                    {/* Content */}
+                    <div className="p-6 space-y-4">
+                      <div>
+                        <Badge variant="secondary" className="mb-2">{project.category}</Badge>
+                        <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
+                          {project.title}
+                        </h3>
+                        <p className="mt-2 text-muted-foreground line-clamp-2">
+                          {project.description}
+                        </p>
+                      </div>
+                      
+                      {/* Technologies */}
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.slice(0, 5).map((tech, i) => (
+                          <Badge key={i} variant="outline" className="text-xs">
+                            {tech}
+                          </Badge>
+                        ))}
+                        {project.technologies.length > 5 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{project.technologies.length - 5}
+                          </Badge>
+                        )}
+                      </div>
+                      
+                      {/* Metrics & View More */}
+                      <div className="flex items-center justify-between pt-2 text-sm text-muted-foreground">
+                        {project.metrics && project.metrics.users !== undefined ? (
                           <span className="flex items-center gap-1">
                             <LucideIcons.Users className="h-4 w-4" />
                             {project.metrics.users} users
                           </span>
+                        ) : (
+                          <span></span>
                         )}
+                        <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1">
+                          View Details <LucideIcons.ArrowRight className="h-3 w-3" />
+                        </span>
                       </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             </motion.div>
           ))}
         </motion.div>
@@ -188,72 +189,75 @@ export default function ProjectsPage() {
                 layout
                 layoutId={project.id}
               >
-                <Card variant="default" hover="lift" className="h-full overflow-hidden group">
-                  <CardContent className="p-0">
-                    {/* Image */}
-                    <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <LucideIcons.Image className="h-12 w-12 text-muted-foreground/20" />
+                <Link href={`/projects/${project.slug}`} className="block h-full">
+                  <Card variant="default" hover="lift" className="h-full overflow-hidden group">
+                    <CardContent className="p-0">
+                      {/* Image */}
+                      <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <LucideIcons.Image className="h-12 w-12 text-muted-foreground/20" />
+                        </div>
+                        {/* Quick Actions Overlay */}
+                        <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                          {project.liveUrl && (
+                            <span
+                              onClick={(e) => { e.preventDefault(); window.open(project.liveUrl, '_blank'); }}
+                              className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground hover:scale-110 transition-transform cursor-pointer"
+                              title="Live Demo"
+                            >
+                              <LucideIcons.ExternalLink className="h-5 w-5" />
+                            </span>
+                          )}
+                          {project.repoUrl && (
+                            <span
+                              onClick={(e) => { e.preventDefault(); window.open(project.repoUrl, '_blank'); }}
+                              className="flex h-10 w-10 items-center justify-center rounded-full bg-muted hover:scale-110 transition-transform cursor-pointer"
+                              title="View Code"
+                            >
+                              <LucideIcons.Github className="h-5 w-5" />
+                            </span>
+                          )}
+                        </div>
+                        {/* Status */}
+                        <div className="absolute right-2 top-2">
+                          <Badge className={`text-xs ${PROJECT_STATUS_COLORS[project.status as ProjectStatus]}`}>
+                            {project.status}
+                          </Badge>
+                        </div>
                       </div>
-                      {/* Quick Actions Overlay */}
-                      <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
-                        {project.liveUrl && (
-                          <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground hover:scale-110 transition-transform"
-                            title="Live Demo"
-                          >
-                            <LucideIcons.ExternalLink className="h-5 w-5" />
-                          </a>
-                        )}
-                        {project.repoUrl && (
-                          <a
-                            href={project.repoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex h-10 w-10 items-center justify-center rounded-full bg-muted hover:scale-110 transition-transform"
-                            title="View Code"
-                          >
-                            <LucideIcons.Github className="h-5 w-5" />
-                          </a>
-                        )}
-                      </div>
-                      {/* Status */}
-                      <div className="absolute right-2 top-2">
-                        <Badge className={`text-xs ${PROJECT_STATUS_COLORS[project.status as ProjectStatus]}`}>
-                          {project.status}
-                        </Badge>
-                      </div>
-                    </div>
-                    
-                    {/* Content */}
-                    <div className="p-4 space-y-3">
-                      <Badge variant="secondary" className="text-xs">{project.category}</Badge>
-                      <h3 className="font-semibold line-clamp-1 group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-2">
-                        {project.shortDescription || project.description}
-                      </p>
                       
-                      {/* Tech Stack */}
-                      <div className="flex flex-wrap gap-1.5 pt-2">
-                        {project.technologies.slice(0, 3).map((tech, i) => (
-                          <span key={i} className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded">
-                            {tech}
+                      {/* Content */}
+                      <div className="p-4 space-y-3">
+                        <Badge variant="secondary" className="text-xs">{project.category}</Badge>
+                        <h3 className="font-semibold line-clamp-1 group-hover:text-primary transition-colors">
+                          {project.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground line-clamp-2">
+                          {project.shortDescription || project.description}
+                        </p>
+                        
+                        {/* Tech Stack & View More */}
+                        <div className="flex items-center justify-between pt-2">
+                          <div className="flex flex-wrap gap-1.5">
+                            {project.technologies.slice(0, 2).map((tech, i) => (
+                              <span key={i} className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded">
+                                {tech}
+                              </span>
+                            ))}
+                            {project.technologies.length > 2 && (
+                              <span className="text-xs text-muted-foreground">
+                                +{project.technologies.length - 2}
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <LucideIcons.ArrowRight className="h-4 w-4" />
                           </span>
-                        ))}
-                        {project.technologies.length > 3 && (
-                          <span className="text-xs text-muted-foreground">
-                            +{project.technologies.length - 3}
-                          </span>
-                        )}
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </Link>
               </motion.div>
             ))}
           </motion.div>

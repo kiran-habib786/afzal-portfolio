@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/providers'
 import { Header, Footer } from '@/components/layout'
-import { NavigationProgress } from '@/components/common'
+import { NavigationProgress, ScrollProgress, ScrollToTop } from '@/components/common'
 import { siteConfig } from '@/data/about'
 
 const geistSans = Geist({
@@ -91,11 +91,13 @@ export default function RootLayout({
           <Suspense fallback={null}>
             <NavigationProgress />
           </Suspense>
+          <ScrollProgress />
           <div className="relative flex min-h-screen flex-col">
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
+          <ScrollToTop />
         </ThemeProvider>
       </body>
     </html>

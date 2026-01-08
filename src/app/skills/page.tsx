@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import * as LucideIcons from 'lucide-react'
 import { PageHero } from '@/components/layout'
@@ -88,62 +89,69 @@ export default function SkillsPage() {
                   layout
                   layoutId={skill.id}
                 >
-                  <Card variant="elevated" hover="lift" className="h-full overflow-hidden">
-                    <CardContent className="p-0">
-                      {/* Gradient Header */}
-                      <div className={`bg-gradient-to-r ${categoryGradient} p-4`}>
-                        <div className="flex items-center gap-3">
-                          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white/20 backdrop-blur-sm">
-                            {Icon && <Icon className="h-6 w-6 text-white" />}
-                          </div>
-                          <div>
-                            <h3 className="font-semibold text-white">{skill.name}</h3>
-                            <Badge variant="secondary" className="mt-1 bg-white/20 text-white text-xs">
-                              {skill.category}
-                            </Badge>
+                  <Link href={`/skills/${skill.slug}`} className="block h-full group">
+                    <Card variant="elevated" hover="lift" className="h-full overflow-hidden transition-all duration-300 group-hover:ring-2 group-hover:ring-primary/50">
+                      <CardContent className="p-0">
+                        {/* Gradient Header */}
+                        <div className={`bg-gradient-to-r ${categoryGradient} p-4`}>
+                          <div className="flex items-center gap-3">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white/20 backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
+                              {Icon && <Icon className="h-6 w-6 text-white" />}
+                            </div>
+                            <div>
+                              <h3 className="font-semibold text-white group-hover:underline">{skill.name}</h3>
+                              <Badge variant="secondary" className="mt-1 bg-white/20 text-white text-xs">
+                                {skill.category}
+                              </Badge>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      
-                      {/* Content */}
-                      <div className="p-4 space-y-4">
-                        <p className="text-sm text-muted-foreground line-clamp-2">
-                          {skill.description}
-                        </p>
                         
-                        {/* Proficiency Bar */}
-                        <div className="space-y-2">
+                        {/* Content */}
+                        <div className="p-4 space-y-4">
+                          <p className="text-sm text-muted-foreground line-clamp-2">
+                            {skill.description}
+                          </p>
+                          
+                          {/* Proficiency Bar */}
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between text-sm">
+                              <span className="text-muted-foreground">Proficiency</span>
+                              <span className="font-medium">{skill.proficiency}%</span>
+                            </div>
+                            <div className="h-2 overflow-hidden rounded-full bg-muted">
+                              <motion.div
+                                className={`h-full rounded-full ${proficiencyColors[skill.proficiencyLabel]}`}
+                                initial={{ width: 0 }}
+                                whileInView={{ width: `${skill.proficiency}%` }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 1, delay: index * 0.1, ease: 'easeOut' }}
+                              />
+                            </div>
+                            <div className="flex justify-end">
+                              <Badge 
+                                variant={skill.proficiencyLabel === 'Expert' ? 'gradient' : 'secondary'}
+                                className="text-xs"
+                              >
+                                {skill.proficiencyLabel}
+                              </Badge>
+                            </div>
+                          </div>
+                          
+                          {/* Experience & View More */}
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-muted-foreground">Proficiency</span>
-                            <span className="font-medium">{skill.proficiency}%</span>
-                          </div>
-                          <div className="h-2 overflow-hidden rounded-full bg-muted">
-                            <motion.div
-                              className={`h-full rounded-full ${proficiencyColors[skill.proficiencyLabel]}`}
-                              initial={{ width: 0 }}
-                              whileInView={{ width: `${skill.proficiency}%` }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 1, delay: index * 0.1, ease: 'easeOut' }}
-                            />
-                          </div>
-                          <div className="flex justify-end">
-                            <Badge 
-                              variant={skill.proficiencyLabel === 'Expert' ? 'gradient' : 'secondary'}
-                              className="text-xs"
-                            >
-                              {skill.proficiencyLabel}
-                            </Badge>
+                            <div className="flex items-center gap-2 text-muted-foreground">
+                              <LucideIcons.Clock className="h-4 w-4" />
+                              <span>{skill.yearsOfExperience} years experience</span>
+                            </div>
+                            <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1">
+                              View <LucideIcons.ArrowRight className="h-3 w-3" />
+                            </span>
                           </div>
                         </div>
-                        
-                        {/* Experience */}
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <LucideIcons.Clock className="h-4 w-4" />
-                          <span>{skill.yearsOfExperience} years experience</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 </motion.div>
               )
             })}

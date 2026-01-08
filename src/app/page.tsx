@@ -213,29 +213,36 @@ export default function HomePage() {
           >
             {getFeaturedProjects().slice(0, 2).map((project, index) => (
               <motion.div key={project.id} variants={staggerItem}>
-                <Card variant="elevated" hover="lift" className="h-full overflow-hidden group">
-                  <CardContent className="p-0">
-                    <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-primary/20 via-accent/10 to-primary/5">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-4xl font-bold text-primary/20">{project.title.charAt(0)}</span>
+                <Link href={`/projects/${project.slug}`} className="block h-full">
+                  <Card variant="elevated" hover="lift" className="h-full overflow-hidden group">
+                    <CardContent className="p-0">
+                      <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-primary/20 via-accent/10 to-primary/5">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-4xl font-bold text-primary/20">{project.title.charAt(0)}</span>
+                        </div>
                       </div>
-                    </div>
-                    <div className="p-6">
-                      <Badge variant="secondary" className="mb-2">{project.category}</Badge>
-                      <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-muted-foreground line-clamp-2 mb-4">
-                        {project.shortDescription || project.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies.slice(0, 4).map((tech, i) => (
-                          <Badge key={i} variant="outline" className="text-xs">{tech}</Badge>
-                        ))}
+                      <div className="p-6">
+                        <Badge variant="secondary" className="mb-2">{project.category}</Badge>
+                        <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                          {project.title}
+                        </h3>
+                        <p className="text-muted-foreground line-clamp-2 mb-4">
+                          {project.shortDescription || project.description}
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <div className="flex flex-wrap gap-2">
+                            {project.technologies.slice(0, 3).map((tech, i) => (
+                              <Badge key={i} variant="outline" className="text-xs">{tech}</Badge>
+                            ))}
+                          </div>
+                          <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1 text-sm">
+                            View <ArrowRight className="h-3 w-3" />
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
@@ -283,34 +290,36 @@ export default function HomePage() {
               const categoryGradient = SKILL_CATEGORY_COLORS[skill.category as keyof typeof SKILL_CATEGORY_COLORS] || SKILL_CATEGORY_COLORS.Other
               return (
                 <motion.div key={skill.id} variants={staggerItem}>
-                  <Card variant="glass" hover="scale" className="h-full">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-3">
-                        <div className={`h-10 w-10 rounded-lg bg-gradient-to-br ${categoryGradient} flex items-center justify-center`}>
-                          <span className="text-lg font-bold text-white">{skill.name.charAt(0)}</span>
+                  <Link href={`/skills/${skill.slug}`} className="block h-full group">
+                    <Card variant="glass" hover="scale" className="h-full transition-all duration-300 group-hover:ring-2 group-hover:ring-primary/50">
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-3">
+                          <div className={`h-10 w-10 rounded-lg bg-gradient-to-br ${categoryGradient} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                            <span className="text-lg font-bold text-white">{skill.name.charAt(0)}</span>
+                          </div>
+                          <div>
+                            <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">{skill.name}</h3>
+                            <p className="text-xs text-muted-foreground">{skill.category}</p>
+                          </div>
                         </div>
-                        <div>
-                          <h3 className="font-semibold text-sm">{skill.name}</h3>
-                          <p className="text-xs text-muted-foreground">{skill.category}</p>
+                        <div className="mt-3">
+                          <div className="flex justify-between text-xs mb-1">
+                            <span className="text-muted-foreground">Proficiency</span>
+                            <span>{skill.proficiency}%</span>
+                          </div>
+                          <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                            <motion.div
+                              className={`h-full bg-gradient-to-r ${categoryGradient}`}
+                              initial={{ width: 0 }}
+                              whileInView={{ width: `${skill.proficiency}%` }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 1, delay: index * 0.05 }}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="mt-3">
-                        <div className="flex justify-between text-xs mb-1">
-                          <span className="text-muted-foreground">Proficiency</span>
-                          <span>{skill.proficiency}%</span>
-                        </div>
-                        <div className="h-1.5 rounded-full bg-muted overflow-hidden">
-                          <motion.div
-                            className={`h-full bg-gradient-to-r ${categoryGradient}`}
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${skill.proficiency}%` }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1, delay: index * 0.05 }}
-                          />
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 </motion.div>
               )
             })}
