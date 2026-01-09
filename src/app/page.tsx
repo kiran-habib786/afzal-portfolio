@@ -232,7 +232,7 @@ export default function HomePage() {
                 transition={{ duration: 0.6, delay: 0.5 }}
                 className="mt-10"
               >
-                <SocialLinks iconSize="default" variant="muted" />
+                <SocialLinks iconSize="md" variant="muted" />
               </motion.div>
 
               {/* Mobile Stats - shown only on mobile/tablet */}
