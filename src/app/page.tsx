@@ -1,10 +1,11 @@
 'use client'
 
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRef } from 'react'
-import { ArrowRight, Download, Star, Quote } from 'lucide-react'
+import { ArrowRight, Download, Star, Quote, User } from 'lucide-react'
 import { Button, Card, CardContent, Badge, Skeleton } from '@/components/common'
 import { SocialLinks } from '@/components/layout'
 import { staggerContainer, staggerItem, heroTextReveal, heroCharacter } from '@/lib/animations'
@@ -37,6 +38,32 @@ function AnimatedWords({ text, className }: { text: string; className?: string }
         </motion.span>
       ))}
     </motion.span>
+  )
+}
+
+// Profile Image with fallback
+function ProfileImage() {
+  const [imageError, setImageError] = useState(false)
+  
+  if (imageError) {
+    return (
+      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
+        <User className="w-32 h-32 text-primary/40" />
+      </div>
+    )
+  }
+  
+  return (
+    <Image
+      src="/images/profile2.jpeg"
+      alt="Afzal - Full Stack Developer"
+      fill
+      className="object-cover object-top rounded-[2rem]"
+      priority
+      sizes="(max-width: 1024px) 0vw, 380px"
+      onError={() => setImageError(true)}
+      style={{ aspectRatio: '380/500',width: '100%', height: '100%' }}
+    />
   )
 }
 
@@ -207,35 +234,150 @@ export default function HomePage() {
               >
                 <SocialLinks iconSize="default" variant="muted" />
               </motion.div>
-            </motion.div>
 
-            {/* Right Side - Stats Cards */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="hidden lg:block"
-            >
-              <div className="grid grid-cols-2 gap-4">
-                {aboutContent.highlights.map((stat, index) => (
-                  <motion.div
+              {/* Mobile Stats - shown only on mobile/tablet */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="mt-10 grid grid-cols-2 gap-3 lg:hidden"
+              >
+                {aboutContent.highlights.slice(0, 4).map((stat, index) => (
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                    className="group relative rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-6 transition-all duration-300 hover:border-primary/40 hover:bg-card/50"
-                    whileHover={{ y: -4, scale: 1.02 }}
+                    className="rounded-xl border border-border/50 bg-card/30 backdrop-blur-sm p-4 text-center"
                   >
-                    {/* Subtle glow on hover */}
-                    <div className="absolute inset-0 rounded-2xl bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <p className="relative text-3xl font-bold text-primary mb-1">
+                    <p className="text-2xl font-bold text-primary">
                       {stat.value}
                     </p>
-                    <p className="relative text-sm text-muted-foreground">
+                    <p className="text-xs text-muted-foreground mt-0.5">
                       {stat.label}
                     </p>
-                  </motion.div>
+                  </div>
                 ))}
+              </motion.div>
+            </motion.div>
+
+            {/* Right Side - Profile Image with Stylized Frame */}
+            <motion.div
+              initial={{ opacity: 0, x: 50, scale: 0.9 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="hidden lg:flex justify-center items-center relative"
+            >
+              {/* Main container for profile image */}
+              <div className="relative">
+                {/* Animated glow behind the frame */}
+                <motion.div
+                  className="absolute inset-0 -m-4 rounded-[3rem] bg-gradient-to-br from-primary/40 via-primary/20 to-transparent blur-3xl"
+                  animate={{
+                    opacity: [0.4, 0.6, 0.4],
+                    scale: [0.95, 1.05, 0.95],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                />
+                
+                {/* Stylized frame - outer ring */}
+                <div className="relative w-[380px] h-[460px]">
+                  {/* Gradient border frame */}
+                  <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-primary via-primary/50 to-primary/20 p-[3px]">
+                    <div className="w-full h-full rounded-[2.4rem] bg-background" />
+                  </div>
+                  
+                  {/* Inner frame with image */}
+                  <div className="absolute inset-3 rounded-[2rem] overflow-hidden bg-gradient-to-br from-muted to-muted/50">
+                    {/* Profile Image */}
+                    <ProfileImage />
+                    
+                    {/* Subtle gradient overlay on image */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
+                  </div>
+                  
+                  {/* Decorative glow accent on frame */}
+                  <motion.div
+                    className="absolute -top-2 -right-2 w-20 h-20 bg-primary/60 rounded-full blur-2xl"
+                    animate={{
+                      opacity: [0.4, 0.7, 0.4],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                  />
+                  
+                  {/* Bottom glow accent */}
+                  <motion.div
+                    className="absolute -bottom-4 -left-4 w-32 h-32 bg-primary/30 rounded-full blur-3xl"
+                    animate={{
+                      opacity: [0.3, 0.5, 0.3],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                      delay: 1,
+                    }}
+                  />
+                </div>
+                
+                {/* Floating decorative elements */}
+                <motion.div
+                  className="absolute -top-8 -right-8 w-16 h-16"
+                  animate={{
+                    y: [-5, 5, -5],
+                    rotate: [0, 10, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                >
+                  <div className="w-full h-full bg-gradient-to-br from-primary to-primary/50 rotate-45 transform rounded-lg shadow-lg shadow-primary/30" />
+                </motion.div>
+                
+                {/* Floating ring decoration */}
+                <motion.div
+                  className="absolute -bottom-6 -right-6 w-24 h-24"
+                  animate={{
+                    y: [5, -5, 5],
+                    rotate: [0, -15, 0],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                    delay: 0.5,
+                  }}
+                >
+                  <div className="w-full h-full rounded-full border-4 border-primary/40 bg-primary/5 backdrop-blur-sm" />
+                </motion.div>
+
+                {/* Stats overlay cards */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                  className="absolute -right-16 top-1/4 bg-card/80 backdrop-blur-md border border-border/50 rounded-xl p-4 shadow-xl"
+                >
+                  <p className="text-2xl font-bold text-primary">{aboutContent.highlights[0]?.value || '5+'}</p>
+                  <p className="text-xs text-muted-foreground">{aboutContent.highlights[0]?.label || 'Years Exp'}</p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 1 }}
+                  className="absolute -left-12 bottom-1/4 bg-card/80 backdrop-blur-md border border-border/50 rounded-xl p-4 shadow-xl"
+                >
+                  <p className="text-2xl font-bold text-primary">{aboutContent.highlights[1]?.value || '50+'}</p>
+                  <p className="text-xs text-muted-foreground">{aboutContent.highlights[1]?.label || 'Projects'}</p>
+                </motion.div>
               </div>
             </motion.div>
           </div>
