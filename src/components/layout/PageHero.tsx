@@ -8,6 +8,7 @@ import { useRef } from 'react'
 import { cn } from '@/lib/cn'
 import { breadcrumbContainerPro, breadcrumbItemPro, heroSubtitle, heroCTA, floatingOrb } from '@/lib/animations-pro'
 import { SocialLinks } from './SocialLinks'
+import { ConstellationBackground } from '@/components/common'
 import type { BreadcrumbItem, PageHeroProps } from '@/types'
 
 // Generate breadcrumbs from pathname
@@ -88,8 +89,16 @@ export function PageHero({
         {/* Grid pattern overlay - refined */}
         <div className="absolute inset-0 hero-grid-pattern" />
         
+        {/* Pro-level constellation network animation */}
+        <ConstellationBackground 
+          nodeCount={40}
+          connectionDistance={120}
+          interactive={true}
+          className="opacity-60 z-0"
+        />
+        
         {/* Vignette for depth */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,hsl(var(--background)/0.5)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,hsl(var(--background)/0.5)_100%)] z-[1]" />
       </div>
 
       <motion.div 

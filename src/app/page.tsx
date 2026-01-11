@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRef } from 'react'
 import { ArrowRight, Download, Star, Quote, User } from 'lucide-react'
-import { Button, Card, CardContent, Badge, Skeleton } from '@/components/common'
+import { Button, Card, CardContent, Badge, Skeleton, ConstellationBackground } from '@/components/common'
 import { SocialLinks } from '@/components/layout'
 import { staggerContainer, staggerItem, heroTextReveal, heroCharacter } from '@/lib/animations'
 import { floatingOrb, heroWordReveal, heroWord, heroSubtitle, heroCTA, springs } from '@/lib/animations-pro'
@@ -128,8 +128,16 @@ export default function HomePage() {
           {/* Gradient overlay for depth */}
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
           
+          {/* Pro-level constellation network animation */}
+          <ConstellationBackground 
+            nodeCount={60}
+            connectionDistance={140}
+            interactive={true}
+            className="opacity-70"
+          />
+          
           {/* Subtle grid pattern */}
-          <div className="absolute inset-0 hero-grid-pattern opacity-30" />
+          <div className="absolute inset-0 hero-grid-pattern opacity-20" />
         </div>
 
         {/* Hero Content */}
