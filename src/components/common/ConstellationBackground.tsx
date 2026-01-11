@@ -25,17 +25,45 @@ interface ConstellationBackgroundProps {
 function getComputedRGB(): { r: number; g: number; b: number } {
   if (typeof window === 'undefined') return { r: 59, g: 130, b: 246 }
   
-  const temp = document.createElement('div')
-  temp.style.color = 'hsl(var(--primary))'
-  temp.style.display = 'none'
-  document.body.appendChild(temp)
-  const computed = getComputedStyle(temp).color
-  document.body.removeChild(temp)
-  
-  const match = computed.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/)
-  if (match) {
-    return { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) }
+  try {
+    // Get the computed HSL values from CSS custom property
+    const styles = getComputedStyle(document.documentElement)
+    const primaryHsl = styles.getPropertyValue('--primary').trim()
+    
+    if (primaryHsl) {
+      // Parse HSL values (format: "221 83% 53%" or "221.2 83.2% 53.3%")
+      const parts = primaryHsl.split(/\s+/)
+      if (parts.length >= 3) {
+        const h = parseFloat(parts[0])
+        const s = parseFloat(parts[1]) / 100
+        const l = parseFloat(parts[2]) / 100
+        
+        // Convert HSL to RGB
+        const c = (1 - Math.abs(2 * l - 1)) * s
+        const x = c * (1 - Math.abs((h / 60) % 2 - 1))
+        const m = l - c / 2
+        
+        let r = 0, g = 0, b = 0
+        
+        if (h >= 0 && h < 60) { r = c; g = x; b = 0 }
+        else if (h >= 60 && h < 120) { r = x; g = c; b = 0 }
+        else if (h >= 120 && h < 180) { r = 0; g = c; b = x }
+        else if (h >= 180 && h < 240) { r = 0; g = x; b = c }
+        else if (h >= 240 && h < 300) { r = x; g = 0; b = c }
+        else { r = c; g = 0; b = x }
+        
+        return {
+          r: Math.round((r + m) * 255),
+          g: Math.round((g + m) * 255),
+          b: Math.round((b + m) * 255)
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('Failed to parse primary color:', e)
   }
+  
+  // Fallback to blue
   return { r: 59, g: 130, b: 246 }
 }
 
@@ -56,19 +84,45 @@ export function ConstellationBackground({
   // Set client-side flag and get theme color
   useEffect(() => {
     setIsClient(true)
-    colorRef.current = getComputedRGB()
     
-    // Update color on theme change
-    const observer = new MutationObserver(() => {
+    // Initial color fetch
+    const updateColor = () => {
       colorRef.current = getComputedRGB()
+    }
+    updateColor()
+    
+    // Update color on theme/class changes (dark/light mode)
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type === 'attributes') {
+          // Small delay to ensure CSS variables are applied
+          setTimeout(updateColor, 50)
+          break
+        }
+      }
     })
     
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['class', 'data-theme'],
+      attributeFilter: ['class', 'data-theme', 'style'],
     })
+
+    // Also listen for storage events (theme changes from other tabs)
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'portfolio-color-theme') {
+        setTimeout(updateColor, 50)
+      }
+    }
+    window.addEventListener('storage', handleStorage)
+
+    // Poll for color changes (catches inline style changes)
+    const colorCheckInterval = setInterval(updateColor, 500)
     
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('storage', handleStorage)
+      clearInterval(colorCheckInterval)
+    }
   }, [])
 
   // Initialize nodes

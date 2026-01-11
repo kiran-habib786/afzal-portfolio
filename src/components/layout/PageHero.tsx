@@ -68,6 +68,14 @@ export function PageHero({
         className
       )}
     >
+      {/* Pro-level constellation network animation - outside the -z-10 container */}
+      <ConstellationBackground 
+        nodeCount={40}
+        connectionDistance={120}
+        interactive={true}
+        className="opacity-60"
+      />
+
       {/* Pro-level subtle background elements */}
       <div className="absolute inset-0 -z-10">
         {/* Primary gradient orb - very subtle */}
@@ -89,16 +97,8 @@ export function PageHero({
         {/* Grid pattern overlay - refined */}
         <div className="absolute inset-0 hero-grid-pattern" />
         
-        {/* Pro-level constellation network animation */}
-        <ConstellationBackground 
-          nodeCount={40}
-          connectionDistance={120}
-          interactive={true}
-          className="opacity-60 z-0"
-        />
-        
         {/* Vignette for depth */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,hsl(var(--background)/0.5)_100%)] z-[1]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,hsl(var(--background)/0.5)_100%)]" />
       </div>
 
       <motion.div 
