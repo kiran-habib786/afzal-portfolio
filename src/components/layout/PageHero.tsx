@@ -6,9 +6,9 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
 import { useRef } from 'react'
 import { cn } from '@/lib/cn'
-import { breadcrumbContainerPro, breadcrumbItemPro, heroSubtitle, heroCTA, floatingOrb } from '@/lib/animations-pro'
+import { breadcrumbContainerPro, breadcrumbItemPro, heroSubtitle, heroCTA } from '@/lib/animations-pro'
 import { SocialLinks } from './SocialLinks'
-import { ConstellationBackground } from '@/components/common'
+import { GradientMeshBackground } from '@/components/common'
 import type { BreadcrumbItem, PageHeroProps } from '@/types'
 
 // Generate breadcrumbs from pathname
@@ -68,38 +68,11 @@ export function PageHero({
         className
       )}
     >
-      {/* Pro-level constellation network animation - outside the -z-10 container */}
-      <ConstellationBackground 
-        nodeCount={40}
-        connectionDistance={120}
-        interactive={true}
-        className="opacity-60"
+      {/* Pro-level gradient mesh with floating shapes - different from homepage */}
+      <GradientMeshBackground 
+        variant={backgroundVariant}
+        animated={true}
       />
-
-      {/* Pro-level subtle background elements */}
-      <div className="absolute inset-0 -z-10">
-        {/* Primary gradient orb - very subtle */}
-        <motion.div
-          className="absolute -left-20 -top-20 h-[400px] w-[400px] rounded-full bg-gradient-to-br from-primary/[0.06] via-primary/[0.02] to-transparent blur-[80px]"
-          variants={floatingOrb(0)}
-          initial="initial"
-          animate="animate"
-        />
-        
-        {/* Accent gradient orb - subtle */}
-        <motion.div
-          className="absolute -right-20 top-1/4 h-[350px] w-[350px] rounded-full bg-gradient-to-bl from-accent/[0.04] via-accent/[0.01] to-transparent blur-[80px]"
-          variants={floatingOrb(2)}
-          initial="initial"
-          animate="animate"
-        />
-        
-        {/* Grid pattern overlay - refined */}
-        <div className="absolute inset-0 hero-grid-pattern" />
-        
-        {/* Vignette for depth */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,hsl(var(--background)/0.5)_100%)]" />
-      </div>
 
       <motion.div 
         style={{ y, opacity }}
