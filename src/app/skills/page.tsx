@@ -76,7 +76,7 @@ export default function SkillsPage() {
             initial="hidden"
             animate="visible"
             exit={{ opacity: 0 }}
-            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
           >
             {filteredSkills.map((skill, index) => {
               const Icon = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[skill.icon]
@@ -184,7 +184,7 @@ export default function SkillsPage() {
             return (
               <motion.div key={category} variants={staggerItem}>
                 <Card variant="glass" className="h-full">
-                  <CardContent className="p-6">
+                  <CardContent className="p-4">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className={`text-lg font-semibold bg-gradient-to-r ${categoryGradient} bg-clip-text text-transparent`}>
                         {category}

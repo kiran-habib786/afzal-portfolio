@@ -89,12 +89,12 @@ export default function ContactPage() {
       value: contactInfo.location,
       href: null,
     },
-    {
-      icon: 'Clock',
-      label: 'Timezone',
-      value: contactInfo.timezone,
-      href: null,
-    },
+    // {
+    //   icon: 'Clock',
+    //   label: 'Timezone',
+    //   value: contactInfo.timezone,
+    //   href: null,
+    // },
   ]
 
   return (
@@ -112,13 +112,13 @@ export default function ContactPage() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-4 sm:grid-cols-1 lg:grid-cols-3 h-full"
         >
           {contactMethods.map((method, index) => {
             const Icon = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[method.icon]
             const content = (
-              <Card variant="glass" hover={method.href ? 'lift' : 'none'} className="h-full">
-                <CardContent className="flex items-center gap-4 p-4">
+              <Card variant="glass" hover={method.href ? 'lift' : 'none'} className='h-full'>
+                <CardContent className="flex items-center gap-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
                     {Icon && <Icon className="h-6 w-6 text-primary" />}
                   </div>
@@ -156,10 +156,10 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
           >
             <Card variant="elevated" className="h-full">
-              <CardContent className="p-6 md:p-8">
+              <CardContent className="p-4 md:p-4">
                 <h2 className="text-2xl font-bold mb-6">Send a Message</h2>
-                
-                <form onSubmit={handleSubmit} className="space-y-6">
+
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
                       <label htmlFor="name" className="text-sm font-medium">
@@ -192,7 +192,7 @@ export default function ContactPage() {
                       />
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <label htmlFor="subject" className="text-sm font-medium">
                       Subject <span className="text-destructive">*</span>
@@ -208,7 +208,7 @@ export default function ContactPage() {
                       className="w-full rounded-lg border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <label htmlFor="message" className="text-sm font-medium">
                       Message <span className="text-destructive">*</span>
@@ -224,17 +224,16 @@ export default function ContactPage() {
                       className="w-full rounded-lg border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none"
                     />
                   </div>
-                  
+
                   {/* Status Message */}
                   {status.type !== 'idle' && status.type !== 'loading' && (
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className={`flex items-center gap-2 rounded-lg p-4 ${
-                        status.type === 'success'
-                          ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                          : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
-                      }`}
+                      className={`flex items-center gap-2 rounded-lg p-4 ${status.type === 'success'
+                        ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                        : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+                        }`}
                     >
                       {status.type === 'success' ? (
                         <LucideIcons.CheckCircle2 className="h-5 w-5" />
@@ -244,7 +243,7 @@ export default function ContactPage() {
                       <p className="text-sm">{status.message}</p>
                     </motion.div>
                   )}
-                  
+
                   <Button
                     type="submit"
                     size="lg"
@@ -278,7 +277,7 @@ export default function ContactPage() {
           >
             {/* Availability */}
             <Card variant="glass">
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <div className="flex items-start gap-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
                     <LucideIcons.CheckCircle2 className="h-6 w-6 text-green-600 dark:text-green-400" />
@@ -334,7 +333,7 @@ export default function ContactPage() {
 
             {/* Download CV */}
             <Card variant="elevated" className="overflow-hidden">
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <div className="flex flex-col sm:flex-row items-center gap-4">
                   <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10">
                     <LucideIcons.FileText className="h-7 w-7 text-primary" />
@@ -355,46 +354,57 @@ export default function ContactPage() {
               </CardContent>
             </Card>
 
-            {/* FAQ */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold">Frequently Asked</h3>
-              <div className="space-y-3">
-                {[
-                  {
-                    q: 'What services do you offer?',
-                    a: 'Full-stack web development, UI/UX design, and consulting.',
-                  },
-                  {
-                    q: 'What is your typical project timeline?',
-                    a: 'Depends on scope, but typically 2-8 weeks for most projects.',
-                  },
-                  {
-                    q: 'Do you work with international clients?',
-                    a: 'Yes! I work with clients globally and adapt to different timezones.',
-                  },
-                ].map((faq, index) => (
-                  <Card key={index} variant="outline" className="overflow-hidden">
-                    <CardContent className="p-4">
-                      <p className="font-medium text-sm">{faq.q}</p>
-                      <p className="mt-1 text-sm text-muted-foreground">{faq.a}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
           </motion.div>
         </div>
+
+      </Section>
+      <Section>
+        <SectionHeading
+          title="Frequently Asked"
+          subtitle="Professional credentials"
+          align="center"
+        />
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className='mt-8'
+        >
+          {/* FAQ */}
+          <div className="space-y-4">
+            <div className="space-y-3">
+              {[
+                {
+                  q: 'What services do you offer?',
+                  a: 'Full-stack web development, UI/UX design, and consulting.',
+                },
+                {
+                  q: 'What is your typical project timeline?',
+                  a: 'Depends on scope, but typically 2-8 weeks for most projects.',
+                },
+                {
+                  q: 'Do you work with international clients?',
+                  a: 'Yes! I work with clients globally and adapt to different timezones.',
+                },
+              ].map((faq, index) => (
+                <Card key={index} variant="outline" className="overflow-hidden">
+                  <CardContent className="p-4">
+                    <p className="font-medium text-sm">{faq.q}</p>
+                    <p className="mt-1 text-sm text-muted-foreground">{faq.a}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </motion.div>
       </Section>
 
       {/* Map Section (Placeholder) */}
       <Section className="bg-muted/30" noPadding>
-        <div className="relative h-64 w-full overflow-hidden bg-gradient-to-br from-primary/5 to-accent/5">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center">
-              <LucideIcons.MapPin className="mx-auto h-12 w-12 text-primary/30" />
-              <p className="mt-2 text-muted-foreground">Map placeholder - {contactInfo.location}</p>
-            </div>
-          </div>
+        <div className="relative h-72 w-full overflow-hidden bg-gradient-to-br from-primary/5 to-accent/5">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27192.03801511163!2d74.3979740000095!3d31.57891755862111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391910214448d9ff%3A0xd3698040d7b0dcf4!2sQalandar%20Pura%20Harbanspura%2C%20Lahore%2C%20Pakistan!5e0!3m2!1sen!2spl!4v1768186022327!5m2!1sen!2spl" width="100%" height="100%" style={{border:0}} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+               
         </div>
       </Section>
     </>

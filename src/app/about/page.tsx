@@ -221,7 +221,7 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-6"
+            className="space-y-4"
           >
             <h2 className="text-3xl font-bold md:text-4xl">{aboutContent.intro}</h2>
             <p className="text-lg text-muted-foreground">{aboutContent.summary}</p>
@@ -310,7 +310,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Education Section */}
-      <Section>
+      {/* <Section>
         <SectionHeading
           title="Education"
           subtitle="Academic background"
@@ -327,7 +327,7 @@ export default function AboutPage() {
           {aboutContent.education.map((edu, index) => (
             <motion.div key={index} variants={staggerItem}>
               <Card variant="glass" hover="lift" className="h-full">
-                <CardContent className="p-6">
+                <CardContent className="p-4">
                   <div className="flex items-start gap-4">
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
                       <LucideIcons.GraduationCap className="h-6 w-6 text-primary" />
@@ -344,7 +344,7 @@ export default function AboutPage() {
             </motion.div>
           ))}
         </motion.div>
-      </Section>
+      </Section> */}
 
       {/* Certifications Section */}
       <Section className="bg-muted/30">

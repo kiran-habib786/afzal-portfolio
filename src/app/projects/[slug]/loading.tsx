@@ -29,7 +29,7 @@ export default function ProjectDetailLoading() {
                 <Skeleton className="h-24 w-full" />
               </div>
             </div>
-            <div className="space-y-6">
+            <div className="space-y-4">
               <Skeleton className="h-64 w-full rounded-lg" />
               <Skeleton className="h-40 w-full rounded-lg" />
             </div>

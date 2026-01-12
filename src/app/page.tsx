@@ -19,7 +19,7 @@ import type { SkillCategory } from '@/types/skill'
 import { ExperienceTimelineItem } from '@/app/about/page'
 
 // Rotating titles for hero section
-const HERO_TITLES = ['Developer', 'Coder', 'Creator']
+const HERO_TITLES = ['Software Engineer','Developer', 'Coder', 'Programmer', 'Tech Enthusiast', 'Full Stack Developer']
 
 // Pro-level animated rotating text with smooth animation
 function RotatingText({ texts, interval = 2500 }: { texts: string[]; interval?: number }) {
@@ -67,7 +67,7 @@ function RotatingText({ texts, interval = 2500 }: { texts: string[]; interval?: 
       {/* Progressive underline */}
       <motion.span
         key={currentIndex}
-        className="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-primary via-primary to-primary/60 rounded-full"
+        className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-primary via-primary to-primary/60 rounded-full"
         initial={{ width: '0%' }}
         animate={{ width: '100%' }}
         transition={{
@@ -207,7 +207,7 @@ export default function HomePage() {
           style={{ y: heroY, opacity: heroOpacity }}
           className="container-custom flex min-h-screen items-center pt-20 pb-16"
         >
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
             {/* Left Content */}
             <motion.div
               variants={staggerContainer}
@@ -216,14 +216,14 @@ export default function HomePage() {
               className="text-left"
             >
               {/* Welcome Tag */}
-              <motion.p
+              {/* <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 className="text-primary/80 text-sm md:text-base font-medium mb-6 tracking-wide"
               >
                 Welcome to my portfolio!
-              </motion.p>
+              </motion.p> */}
 
               {/* Main Heading */}
               <h1 className="mb-6">
@@ -231,17 +231,18 @@ export default function HomePage() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.1 }}
-                  className="block text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-foreground"
+                  className="block text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-foreground"
                 >
-                  Hello, 
+                 I'm Afzal Habib, 
                 </motion.span>
                 <motion.span
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="block text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-foreground"
+                  className="block text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-foreground"
                 >
-                  I am <RotatingText texts={HERO_TITLES} interval={3000} />
+                  {/* <span className='text-2xl md:text-2xl lg:text-3xl xl:text-4xl text-center'>The </span> */}
+                  <RotatingText texts={HERO_TITLES} interval={3000} />
                   <span className="text-primary">.</span>
                 </motion.span>
               </h1>
@@ -496,7 +497,7 @@ export default function HomePage() {
                           <span className="text-4xl font-bold text-primary/20">{project.title.charAt(0)}</span>
                         </div>
                       </div>
-                      <div className="p-6">
+                      <div className="p-4">
                         <Badge variant="secondary" className="mb-2">{project.category}</Badge>
                         <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
                           {project.title}
@@ -670,7 +671,7 @@ export default function HomePage() {
             {testimonials.slice(0, 3).map((testimonial, index) => (
               <motion.div key={testimonial.id} variants={staggerItem}>
                 <Card variant="elevated" className="h-full">
-                  <CardContent className="p-6">
+                  <CardContent className="p-4">
                     <Quote className="h-8 w-8 text-primary/20 mb-4" />
                     <p className="text-muted-foreground mb-6 line-clamp-4">
                       &ldquo;{testimonial.content}&rdquo;

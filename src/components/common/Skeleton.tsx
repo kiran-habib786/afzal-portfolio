@@ -47,9 +47,9 @@ export function PageHeroSkeleton() {
 // Card Grid Skeleton
 export function CardGridSkeleton({ count = 6 }: { count?: number }) {
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {[...Array(count)].map((_, i) => (
-        <div key={i} className="rounded-lg border border-border bg-card p-6">
+        <div key={i} className="rounded-lg border border-border bg-card p-4">
           <Skeleton className="mb-4 h-32 w-full rounded-lg" />
           <Skeleton className="mb-2 h-6 w-3/4" />
           <Skeleton className="mb-4 h-4 w-full" />
@@ -63,7 +63,7 @@ export function CardGridSkeleton({ count = 6 }: { count?: number }) {
 // Section Skeleton
 export function SectionSkeleton({ children }: { children?: React.ReactNode }) {
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-12 md:py-16">
       <div className="container-custom">
         {/* Section heading skeleton */}
         <div className="mb-12 text-center">
@@ -106,7 +106,7 @@ export function ProjectsPageSkeleton() {
           {[...Array(2)].map((_, i) => (
             <div key={i} className="rounded-lg border border-border bg-card overflow-hidden">
               <Skeleton className="aspect-video w-full" />
-              <div className="p-6">
+              <div className="p-4">
                 <Skeleton className="mb-2 h-5 w-20" />
                 <Skeleton className="mb-2 h-7 w-3/4" />
                 <Skeleton className="mb-4 h-4 w-full" />
@@ -135,7 +135,7 @@ export function AboutPageSkeleton() {
       <SectionSkeleton>
         <div className="grid gap-12 lg:grid-cols-2">
           <Skeleton className="aspect-square rounded-2xl" />
-          <div className="space-y-6">
+          <div className="space-y-4">
             <Skeleton className="h-10 w-3/4" />
             <Skeleton className="h-24 w-full" />
             <div className="grid grid-cols-2 gap-4">
@@ -165,7 +165,7 @@ export function ContactPageSkeleton() {
       <SectionSkeleton>
         <div className="grid gap-12 lg:grid-cols-2">
           <Skeleton className="h-[500px] rounded-lg" />
-          <div className="space-y-6">
+          <div className="space-y-4">
             {[...Array(4)].map((_, i) => (
               <Skeleton key={i} className="h-24 rounded-lg" />
             ))}

@@ -2,11 +2,11 @@
 
 export const aboutContent = {
   // Hero section content
-  intro: "Hi, I'm Afzal",
+  intro: "Hi, I'm Afzal Habib",
   tagline: 'Full-Stack Developer & UI/UX Enthusiast',
   
   // Summary
-  summary: `I'm a passionate Full-Stack Developer with over 5 years of experience building 
+  summary: `I'm a passionate Full-Stack Developer with over 2.5 years of experience building 
   modern web applications. I specialize in React, Next.js, and Node.js, with a keen eye 
   for creating intuitive user experiences and writing clean, maintainable code.`,
   
@@ -22,10 +22,10 @@ export const aboutContent = {
   
   // Key highlights/stats
   highlights: [
-    { label: 'Years of Experience', value: '5+' },
-    { label: 'Projects Completed', value: '50+' },
-    { label: 'Happy Clients', value: '30+' },
-    { label: 'Technologies Mastered', value: '20+' },
+    { label: 'Years of Experience', value: '2.5+' },
+    { label: 'Projects Completed', value: '15+' },
+    { label: 'Happy Clients', value: '15+' },
+    { label: 'Technologies Mastered', value: '10+' },
   ],
   
   // Values
@@ -127,9 +127,9 @@ export const aboutContent = {
 
 // Contact information
 export const contactInfo = {
-  email: 'hello@afzal.dev',
-  phone: '+1 (555) 123-4567',
-  location: 'New York, USA',
+  email: 'afzalhaabib786@gmail.com',
+  phone: '+92 3231103430',
+  location: 'Qalanderpura main bazar, Harbanspura,Lahore, Pakistan',
   timezone: 'EST (UTC-5)',
   availability: 'Available for freelance projects',
   responseTime: 'Usually responds within 24 hours',
@@ -143,6 +143,7 @@ export const siteConfig = {
   url: 'https://afzal.dev',
   ogImage: 'https://afzal.dev/og-image.jpg',
   author: 'Afzal',
-  email: 'hello@afzal.dev',
+  phone: '+92 3231103430',
+  email: 'afzalhaabib786@gmail.com',
   keywords: ['Full-Stack Developer', 'React Developer', 'Next.js', 'Node.js', 'Web Developer', 'Portfolio'],
 }

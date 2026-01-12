@@ -73,7 +73,7 @@ export default function NotFound() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="mt-12 rounded-lg border border-border bg-muted/30 p-6"
+            className="mt-12 rounded-lg border border-border bg-muted/30 p-4"
           >
             <h2 className="mb-4 text-lg font-semibold">Maybe try one of these?</h2>
             <div className="flex flex-wrap justify-center gap-3">

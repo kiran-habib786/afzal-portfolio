@@ -40,7 +40,7 @@ export default function SkillDetailLoading() {
                 ))}
               </div>
             </div>
-            <div className="space-y-6">
+            <div className="space-y-4">
               <Skeleton className="h-72 w-full rounded-lg" />
               <Skeleton className="h-48 w-full rounded-lg" />
             </div>

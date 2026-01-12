@@ -18,7 +18,7 @@ export function Skeleton({ className }: SkeletonProps) {
 // Pre-built skeleton components
 export function CardSkeleton({ className }: SkeletonProps) {
   return (
-    <div className={cn('rounded-lg border border-border p-6', className)}>
+    <div className={cn('rounded-lg border border-border p-4', className)}>
       <Skeleton className="h-48 w-full rounded-md" />
       <div className="mt-4 space-y-3">
         <Skeleton className="h-6 w-3/4" />

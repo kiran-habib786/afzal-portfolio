@@ -130,11 +130,11 @@ export default function SkillDetailPage() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="space-y-6"
+            className="space-y-4"
           >
             {/* Stats Card */}
             <Card variant="elevated">
-              <CardContent className="p-6 space-y-6">
+              <CardContent className="p-4 space-y-4">
                 {/* Proficiency */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
@@ -191,7 +191,7 @@ export default function SkillDetailPage() {
             {/* Related Skills */}
             {relatedSkills.length > 0 && (
               <Card variant="glass">
-                <CardContent className="p-6">
+                <CardContent className="p-4">
                   <h3 className="font-semibold mb-4">Related Skills</h3>
                   <div className="space-y-3">
                     {relatedSkills.map((relatedSkill) => (

@@ -20,21 +20,21 @@ export function Footer({ className }: FooterProps) {
         className
       )}
     >
-      <div className="container-custom py-12 md:py-16">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div className="container-custom py-6 md:py-8 pb-4">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {/* Brand Section */}
           <div className="space-y-4">
             <Link href="/" className="text-2xl font-bold">
               <span className="text-gradient">{siteConfig.name}</span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              {siteConfig.description.slice(0, 120)}...
+              {siteConfig.description}
             </p>
             <SocialLinks iconSize="sm" variant="muted" animated={false} />
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
               Quick Links
             </h3>
@@ -63,13 +63,19 @@ export function Footer({ className }: FooterProps) {
               >
                 {siteConfig.email}
               </a>
-              <p>New York, USA</p>
-              <p>Available for freelance</p>
+              <a
+                href={`tel:${siteConfig.phone.replace(/\s+/g, '')}`}
+                className="transition-colors hover:text-foreground"
+              >
+                {siteConfig.phone}
+              </a>
+              <p>Qalanderpura main bazar, Harbanspura,Lahore, Pakistan</p>
+              {/* <p>Available for freelance</p> */}
             </div>
           </div>
 
           {/* Legal Links */}
-          <div className="space-y-4">
+          {/* <div className="space-y-4">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
               Legal
             </h3>
@@ -84,17 +90,17 @@ export function Footer({ className }: FooterProps) {
                 </Link>
               ))}
             </nav>
-          </div>
+          </div> */}
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row">
+        <div className="mt-6 flex flex-col items-center justify-center gap-4 border-t border-border pt-4 md:flex-row">
           <p className="text-sm text-muted-foreground">
             © {currentYear} {siteConfig.name}. All rights reserved.
           </p>
-          <p className="flex items-center gap-1 text-sm text-muted-foreground">
+          {/* <p className="flex items-center gap-1 text-sm text-muted-foreground">
             Made with <Heart className="h-4 w-4 text-destructive" /> using Next.js
-          </p>
+          </p> */}
         </div>
       </div>
     </footer>

@@ -42,7 +42,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
           ref={ref as React.Ref<HTMLElement>}
           id={id}
           className={cn(
-            !noPadding && 'py-16 md:py-24',
+            !noPadding && 'py-12 md:py-16',
             className
           )}
           initial="hidden"

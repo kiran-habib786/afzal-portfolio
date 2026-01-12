@@ -54,7 +54,7 @@ export default function ProjectsPage() {
                         <LucideIcons.Image className="h-16 w-16 text-muted-foreground/30" />
                       </div>
                       {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                         <div className="flex gap-3">
                           {project.liveUrl && (
                             <span
@@ -85,7 +85,7 @@ export default function ProjectsPage() {
                     </div>
                     
                     {/* Content */}
-                    <div className="p-6 space-y-4">
+                    <div className="p-4 space-y-4">
                       <div>
                         <Badge variant="secondary" className="mb-2">{project.category}</Badge>
                         <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
@@ -180,7 +180,7 @@ export default function ProjectsPage() {
             initial="hidden"
             animate="visible"
             exit={{ opacity: 0 }}
-            className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
           >
             {filteredProjects.map((project) => (
               <motion.div

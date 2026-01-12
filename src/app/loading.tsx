@@ -55,7 +55,7 @@ export default function HomeLoading() {
             {[...Array(2)].map((_, i) => (
               <div key={i} className="rounded-lg border border-border bg-card overflow-hidden">
                 <Skeleton className="aspect-video w-full" />
-                <div className="p-6">
+                <div className="p-4">
                   <Skeleton className="mb-2 h-5 w-20" />
                   <Skeleton className="mb-2 h-7 w-3/4" />
                   <Skeleton className="mb-4 h-12 w-full" />

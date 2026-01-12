@@ -72,11 +72,11 @@ export default function ProjectDetailPage() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="space-y-6"
+            className="space-y-4"
           >
             {/* Quick Info Card */}
             <Card variant="elevated">
-              <CardContent className="p-6 space-y-4">
+              <CardContent className="p-4 space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Status</span>
                   <Badge className={PROJECT_STATUS_COLORS[project.status as ProjectStatus]}>
@@ -131,7 +131,7 @@ export default function ProjectDetailPage() {
 
             {/* Technologies */}
             <Card variant="glass">
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <h3 className="font-semibold mb-4">Technologies Used</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, index) => (
@@ -157,7 +157,7 @@ export default function ProjectDetailPage() {
               viewport={{ once: true }}
             >
               <Card variant="elevated" className="h-full">
-                <CardContent className="p-6">
+                <CardContent className="p-4">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
                       <LucideIcons.CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400" />
@@ -193,7 +193,7 @@ export default function ProjectDetailPage() {
               transition={{ delay: 0.1 }}
             >
               <Card variant="elevated" className="h-full">
-                <CardContent className="p-6">
+                <CardContent className="p-4">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100 dark:bg-orange-900/30">
                       <LucideIcons.Target className="h-5 w-5 text-orange-600 dark:text-orange-400" />
@@ -259,7 +259,7 @@ export default function ProjectDetailPage() {
         <div className="flex items-center justify-between gap-4">
           {prevProject ? (
             <Link href={`/projects/${prevProject.slug}`} className="group flex-1">
-              <Card variant="outline" hover="lift" className="h-full">
+              <Card variant="outline" hover="lift" className="h-full border-0">
                 <CardContent className="p-4 flex items-center gap-4">
                   <LucideIcons.ArrowLeft className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
                   <div>
@@ -284,7 +284,7 @@ export default function ProjectDetailPage() {
 
           {nextProject ? (
             <Link href={`/projects/${nextProject.slug}`} className="group flex-1">
-              <Card variant="outline" hover="lift" className="h-full">
+              <Card variant="outline" hover="lift" className="h-full border-0">
                 <CardContent className="p-4 flex items-center justify-end gap-4">
                   <div className="text-right">
                     <p className="text-xs text-muted-foreground">Next Project</p>

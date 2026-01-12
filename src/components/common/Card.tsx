@@ -21,7 +21,7 @@ const cardVariants = cva(
       padding: {
         none: 'p-0',
         sm: 'p-4',
-        default: 'p-6',
+        default: 'p-4',
         lg: 'p-8',
       },
       hover: {
