@@ -84,28 +84,28 @@ export function GradientMeshBackground({
 
   return (
     <div className={cn('absolute inset-0 overflow-hidden', className)}>
-      {/* Animated gradient mesh orbs - more visible */}
+      {/* Animated gradient mesh orbs - theme aware */}
       <GradientOrb
-        className="w-[600px] h-[600px] -top-40 -left-40 bg-gradient-to-br from-primary/30 via-primary/20 to-primary/5"
+        className="w-[600px] h-[600px] -top-40 -left-40 bg-gradient-to-br from-primary/40 via-primary/30 to-primary/10 dark:from-primary/30 dark:via-primary/20 dark:to-primary/5"
         delay={0}
         scale={isSubtle ? 0.8 : 1}
       />
       
       <GradientOrb
-        className="w-[500px] h-[500px] top-1/4 -right-20 bg-gradient-to-bl from-primary/25 via-accent/15 to-accent/5"
+        className="w-[500px] h-[500px] top-1/4 -right-20 bg-gradient-to-bl from-primary/35 via-accent/25 to-accent/10 dark:from-primary/25 dark:via-accent/15 dark:to-accent/5"
         delay={2}
         scale={isSubtle ? 0.7 : 0.9}
       />
       
       <GradientOrb
-        className="w-[400px] h-[400px] -bottom-20 left-1/4 bg-gradient-to-tr from-primary/20 via-primary/10 to-transparent"
+        className="w-[400px] h-[400px] -bottom-20 left-1/4 bg-gradient-to-tr from-primary/30 via-primary/20 to-transparent dark:from-primary/20 dark:via-primary/10 dark:to-transparent"
         delay={4}
         scale={isSubtle ? 0.6 : 0.85}
       />
 
       {/* Flowing mesh lines - horizontal */}
       <svg
-        className="absolute inset-0 w-full h-full opacity-[0.08]"
+        className="absolute inset-0 w-full h-full opacity-[0.15] dark:opacity-[0.08]"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
@@ -203,7 +203,7 @@ export function GradientMeshBackground({
             duration={15}
             className="top-[15%] right-[15%]"
           >
-            <div className="w-10 h-10 rotate-45 border-2 border-primary/40 bg-primary/10 backdrop-blur-sm shadow-lg shadow-primary/20" />
+            <div className="w-10 h-10 rotate-45 border-2 border-primary/60 bg-primary/20 dark:border-primary/40 dark:bg-primary/10 backdrop-blur-sm shadow-lg shadow-primary/30 dark:shadow-primary/20" />
           </FloatingShape>
 
           {/* Circle ring */}
@@ -212,7 +212,7 @@ export function GradientMeshBackground({
             duration={18}
             className="top-[60%] right-[25%]"
           >
-            <div className="w-14 h-14 rounded-full border-2 border-primary/30 bg-primary/5" />
+            <div className="w-14 h-14 rounded-full border-2 border-primary/50 bg-primary/10 dark:border-primary/30 dark:bg-primary/5" />
           </FloatingShape>
 
           {/* Small square */}
@@ -221,7 +221,7 @@ export function GradientMeshBackground({
             duration={20}
             className="top-[35%] left-[10%]"
           >
-            <div className="w-8 h-8 border-2 border-primary/35 bg-primary/10 backdrop-blur-sm rounded-sm shadow-lg shadow-primary/10" />
+            <div className="w-8 h-8 border-2 border-primary/55 bg-primary/15 dark:border-primary/35 dark:bg-primary/10 backdrop-blur-sm rounded-sm shadow-lg shadow-primary/20 dark:shadow-primary/10" />
           </FloatingShape>
 
           {/* Dot cluster */}
@@ -231,9 +231,9 @@ export function GradientMeshBackground({
             className="bottom-[25%] left-[20%]"
           >
             <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full bg-primary/50" />
-              <div className="w-3 h-3 rounded-full bg-primary/35" />
-              <div className="w-3 h-3 rounded-full bg-primary/20" />
+              <div className="w-3 h-3 rounded-full bg-primary/70 dark:bg-primary/50" />
+              <div className="w-3 h-3 rounded-full bg-primary/50 dark:bg-primary/35" />
+              <div className="w-3 h-3 rounded-full bg-primary/30 dark:bg-primary/20" />
             </div>
           </FloatingShape>
 
@@ -243,10 +243,10 @@ export function GradientMeshBackground({
             duration={22}
             className="top-[20%] left-[30%]"
           >
-            <svg width="32" height="36" viewBox="0 0 24 28" className="text-primary/40">
+            <svg width="32" height="36" viewBox="0 0 24 28" className="text-primary/60 dark:text-primary/40">
               <polygon
                 points="12,1 23,7 23,21 12,27 1,21 1,7"
-                fill="hsl(var(--primary) / 0.1)"
+                className="fill-primary/15 dark:fill-primary/10"
                 stroke="currentColor"
                 strokeWidth="1.5"
               />
@@ -260,8 +260,8 @@ export function GradientMeshBackground({
             className="bottom-[35%] right-[10%]"
           >
             <div className="relative w-8 h-8">
-              <div className="absolute top-1/2 left-0 w-full h-[2px] bg-primary/40 -translate-y-1/2 rounded-full" />
-              <div className="absolute top-0 left-1/2 w-[2px] h-full bg-primary/40 -translate-x-1/2 rounded-full" />
+              <div className="absolute top-1/2 left-0 w-full h-[2px] bg-primary/60 dark:bg-primary/40 -translate-y-1/2 rounded-full" />
+              <div className="absolute top-0 left-1/2 w-[2px] h-full bg-primary/60 dark:bg-primary/40 -translate-x-1/2 rounded-full" />
             </div>
           </FloatingShape>
         </>
