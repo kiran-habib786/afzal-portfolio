@@ -1,7 +1,7 @@
 'use client'
 
-import { lazy, Suspense, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { lazy, Suspense, useState, useEffect } from 'react'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRef } from 'react'
@@ -16,6 +16,67 @@ import { skills } from '@/data/skills'
 import { testimonials } from '@/data/testimonials'
 import { SKILL_CATEGORY_COLORS } from '@/lib/constants'
 import type { SkillCategory } from '@/types/skill'
+
+// Rotating titles for hero section
+const HERO_TITLES = ['Developer', 'Coder', 'Creator']
+
+// Pro-level animated rotating text with smooth animation
+function RotatingText({ texts, interval = 2500 }: { texts: string[]; interval?: number }) {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % texts.length)
+    }, interval)
+    return () => clearInterval(timer)
+  }, [texts.length, interval])
+
+  const currentText = texts[currentIndex]
+
+  return (
+    <span className="relative inline-block align-baseline">
+      {/* Glow effect behind text */}
+      <motion.span
+        className="absolute -inset-x-4 -inset-y-2 blur-2xl bg-primary/40 -z-10 rounded-lg"
+        animate={{ 
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      
+      {/* Text container with smooth vertical slide */}
+      <span className="relative inline-block overflow-hidden h-[1.2em] align-bottom">
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.span
+            key={currentIndex}
+            initial={{ y: '100%' }}
+            animate={{ y: '0%' }}
+            exit={{ y: '-100%' }}
+            transition={{ 
+              duration: 0.5,
+              ease: [0.32, 0.72, 0, 1],
+            }}
+            className="inline-block text-primary whitespace-nowrap"
+          >
+            {currentText}
+          </motion.span>
+        </AnimatePresence>
+      </span>
+      
+      {/* Progressive underline */}
+      <motion.span
+        key={currentIndex}
+        className="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-primary via-primary to-primary/60 rounded-full"
+        initial={{ width: '0%' }}
+        animate={{ width: '100%' }}
+        transition={{
+          duration: (interval - 500) / 1000,
+          ease: 'linear',
+        }}
+      />
+    </span>
+  )
+}
 
 // Split text into words for animation
 function AnimatedWords({ text, className }: { text: string; className?: string }) {
@@ -171,7 +232,7 @@ export default function HomePage() {
                   transition={{ duration: 0.6, delay: 0.1 }}
                   className="block text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-foreground"
                 >
-                  Hello, my
+                  Hello, 
                 </motion.span>
                 <motion.span
                   initial={{ opacity: 0, y: 30 }}
@@ -179,16 +240,7 @@ export default function HomePage() {
                   transition={{ duration: 0.6, delay: 0.2 }}
                   className="block text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-foreground"
                 >
-                  name&apos;s{' '}
-                  <span className="relative inline-block text-primary">
-                    Afzal
-                    {/* Glow effect behind name */}
-                    <motion.span 
-                      className="absolute -inset-x-4 -inset-y-2 blur-2xl bg-primary/40 -z-10 rounded-lg"
-                      animate={{ opacity: [0.4, 0.6, 0.4] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                    />
-                  </span>
+                  I am <RotatingText texts={HERO_TITLES} interval={3000} />
                   <span className="text-primary">.</span>
                 </motion.span>
               </h1>
