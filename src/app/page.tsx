@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRef } from 'react'
 import { ArrowRight, Download, Star, Quote, User } from 'lucide-react'
-import { Button, Card, CardContent, Badge, Skeleton, ConstellationBackground } from '@/components/common'
+import { Button, Card, CardContent, Badge, Skeleton, ConstellationBackground, Section, SectionHeading } from '@/components/common'
 import { SocialLinks } from '@/components/layout'
 import { staggerContainer, staggerItem, heroTextReveal, heroCharacter } from '@/lib/animations'
 import { floatingOrb, heroWordReveal, heroWord, heroSubtitle, heroCTA, springs } from '@/lib/animations-pro'
@@ -16,6 +16,7 @@ import { skills } from '@/data/skills'
 import { testimonials } from '@/data/testimonials'
 import { SKILL_CATEGORY_COLORS } from '@/lib/constants'
 import type { SkillCategory } from '@/types/skill'
+import { ExperienceTimelineItem } from '@/app/about/page'
 
 // Rotating titles for hero section
 const HERO_TITLES = ['Developer', 'Coder', 'Creator']
@@ -614,6 +615,34 @@ export default function HomePage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Experience Section */}
+      <Section className="bg-muted/30 overflow-hidden">
+        <SectionHeading
+          title="Work Experience"
+          subtitle="My professional journey"
+          description="A timeline of my career growth and the impact I've made along the way."
+          align="center"
+        />
+
+        <div className="mt-10 relative">
+          {/* Background glow effects */}
+          <div className="absolute top-1/4 left-0 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[80px] -z-10" />
+          <div className="absolute bottom-1/4 right-0 w-[200px] h-[200px] bg-accent/5 rounded-full blur-[80px] -z-10" />
+
+          {/* Timeline container */}
+          <div className="relative">
+            {aboutContent.experience.map((exp, index) => (
+              <ExperienceTimelineItem
+                key={index}
+                exp={exp}
+                index={index}
+                testimonial={testimonials[index]}
+              />
+            ))}
+          </div>
+        </div>
+      </Section>
 
       {/* Testimonials Section */}
       <section className="py-24">

@@ -9,7 +9,7 @@ import { testimonials } from '@/data/testimonials'
 import { staggerContainer, staggerItem } from '@/lib/animations'
 
 // Experience timeline item component
-function ExperienceTimelineItem({
+export function ExperienceTimelineItem({
   exp,
   index,
   testimonial,
