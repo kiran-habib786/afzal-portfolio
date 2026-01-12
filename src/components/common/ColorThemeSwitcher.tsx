@@ -146,7 +146,7 @@ export function ColorThemeSwitcher() {
                   />
                   <div className="flex-1 text-left">
                     <span className="block font-medium">{theme.label}</span>
-                    <span className="block text-xs text-muted-foreground">{theme.description}</span>
+                    {/* <span className="block text-xs text-muted-foreground">{theme.description}</span> */}
                   </div>
                   {colorTheme === theme.name && (
                     <Check className="h-4 w-4 text-primary shrink-0" />

@@ -59,7 +59,7 @@ export function Header() {
         )}
       >
         <nav className="container-custom">
-          <div className="flex h-16 items-center justify-between md:h-20">
+          <div className="flex h-16 items-center justify-between md:h-16">
             {/* Logo */}
             <Link
               href="/"
