@@ -296,7 +296,7 @@ export default function ProjectsPage() {
               Start a Conversation
             </Link>
             <a
-              href="https://github.com/afzal"
+              href="https://github.com/afzalhabibi"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 font-medium transition-all hover:bg-muted hover:scale-105"
