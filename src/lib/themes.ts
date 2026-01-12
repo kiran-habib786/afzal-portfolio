@@ -5,42 +5,43 @@
  * Each theme is carefully crafted for both light and dark modes.
  */
 
-export type ThemeName = 
-  | 'midnight' 
-  | 'aurora' 
-  | 'neon' 
-  | 'ember' 
-  | 'arctic' 
+export type ThemeName =
+  | 'gold'
+  | 'crimson'
+  | 'midnight'
+  | 'aurora'
+  | 'neon'
+  | 'ember'
+  | 'arctic'
   | 'lavender'
   | 'forest'
   | 'coral'
   | 'slate'
-  | 'gold'
 
 export interface ThemeColors {
   // Primary colors
   primary: string
   primaryForeground: string
-  
+
   // Accent colors  
   accent: string
   accentForeground: string
-  
+
   // Background shades
   background: string
   foreground: string
-  
+
   // Muted colors
   muted: string
   mutedForeground: string
-  
+
   // Card colors
   card: string
   cardForeground: string
-  
+
   // Border
   border: string
-  
+
   // Ring (focus)
   ring: string
 }
@@ -59,8 +60,80 @@ export interface Theme {
 // ===========================================
 
 export const themes: Record<ThemeName, Theme> = {
-  
-  // Midnight Blue - Professional & Corporate (Default)
+  // Gold - Luxury & Premium
+  gold: {
+    name: 'gold',
+    label: 'Gold',
+    description: 'Elegant gold, luxury & premium',
+    preview: '#EAB308',
+    light: {
+      primary: '45 93% 47%',
+      primaryForeground: '45 40% 10%',
+      accent: '45 93% 47%',
+      accentForeground: '45 40% 10%',
+      background: '45 20% 99%',
+      foreground: '45 30% 10%',
+      muted: '45 20% 95%',
+      mutedForeground: '45 15% 40%',
+      card: '0 0% 100%',
+      cardForeground: '45 30% 10%',
+      border: '45 20% 88%',
+      ring: '45 93% 47%',
+    },
+    dark: {
+      primary: '48 96% 53%',
+      primaryForeground: '45 40% 10%',
+      accent: '48 96% 53%',
+      accentForeground: '45 40% 10%',
+      background: '45 20% 4%',
+      foreground: '45 10% 98%',
+      muted: '45 20% 9%',
+      mutedForeground: '45 15% 55%',
+      card: '45 20% 6%',
+      cardForeground: '45 10% 98%',
+      border: '45 15% 12%',
+      ring: '48 96% 53%',
+    },
+  },
+
+  // Slate - Neutral & Professional
+  slate: {
+    name: 'slate',
+    label: 'Slate',
+    description: 'Neutral gray, timeless & versatile',
+    preview: '#64748B',
+    light: {
+      primary: '215 16% 47%',
+      primaryForeground: '0 0% 100%',
+      accent: '215 16% 47%',
+      accentForeground: '0 0% 100%',
+      background: '0 0% 100%',
+      foreground: '215 28% 17%',
+      muted: '210 20% 96%',
+      mutedForeground: '215 16% 47%',
+      card: '0 0% 100%',
+      cardForeground: '215 28% 17%',
+      border: '214 20% 90%',
+      ring: '215 16% 47%',
+    },
+    dark: {
+      primary: '215 20% 65%',
+      primaryForeground: '215 28% 10%',
+      accent: '215 20% 65%',
+      accentForeground: '215 28% 10%',
+      background: '215 28% 6%',
+      foreground: '210 20% 98%',
+      muted: '215 25% 11%',
+      mutedForeground: '215 15% 55%',
+      card: '215 28% 8%',
+      cardForeground: '210 20% 98%',
+      border: '215 20% 14%',
+      ring: '215 20% 65%',
+    },
+  },
+
+
+  // Midnight Blue - Professional & Corporate
   midnight: {
     name: 'midnight',
     label: 'Midnight',
@@ -95,7 +168,41 @@ export const themes: Record<ThemeName, Theme> = {
       ring: '217 91% 60%',
     },
   },
-
+  // Crimson Red - Bold & Modern (Default)
+  crimson: {
+    name: 'crimson',
+    label: 'Crimson',
+    description: 'Bold red, modern & striking',
+    preview: '#EF4444',
+    light: {
+      primary: '0 84% 60%',
+      primaryForeground: '0 0% 100%',
+      accent: '0 84% 60%',
+      accentForeground: '0 0% 100%',
+      background: '0 0% 100%',
+      foreground: '222 47% 11%',
+      muted: '0 20% 96%',
+      mutedForeground: '0 10% 45%',
+      card: '0 0% 100%',
+      cardForeground: '222 47% 11%',
+      border: '0 15% 90%',
+      ring: '0 84% 60%',
+    },
+    dark: {
+      primary: '0 72% 51%',
+      primaryForeground: '0 0% 100%',
+      accent: '0 72% 51%',
+      accentForeground: '0 0% 100%',
+      background: '222 47% 6%',
+      foreground: '210 40% 98%',
+      muted: '217 33% 12%',
+      mutedForeground: '215 20% 55%',
+      card: '222 47% 8%',
+      cardForeground: '210 40% 98%',
+      border: '217 33% 15%',
+      ring: '0 72% 51%',
+    },
+  },
   // Aurora Purple - Creative & Bold
   aurora: {
     name: 'aurora',
@@ -348,84 +455,14 @@ export const themes: Record<ThemeName, Theme> = {
     },
   },
 
-  // Slate - Neutral & Professional
-  slate: {
-    name: 'slate',
-    label: 'Slate',
-    description: 'Neutral gray, timeless & versatile',
-    preview: '#64748B',
-    light: {
-      primary: '215 16% 47%',
-      primaryForeground: '0 0% 100%',
-      accent: '215 16% 47%',
-      accentForeground: '0 0% 100%',
-      background: '0 0% 100%',
-      foreground: '215 28% 17%',
-      muted: '210 20% 96%',
-      mutedForeground: '215 16% 47%',
-      card: '0 0% 100%',
-      cardForeground: '215 28% 17%',
-      border: '214 20% 90%',
-      ring: '215 16% 47%',
-    },
-    dark: {
-      primary: '215 20% 65%',
-      primaryForeground: '215 28% 10%',
-      accent: '215 20% 65%',
-      accentForeground: '215 28% 10%',
-      background: '215 28% 6%',
-      foreground: '210 20% 98%',
-      muted: '215 25% 11%',
-      mutedForeground: '215 15% 55%',
-      card: '215 28% 8%',
-      cardForeground: '210 20% 98%',
-      border: '215 20% 14%',
-      ring: '215 20% 65%',
-    },
-  },
 
-  // Gold - Luxury & Premium
-  gold: {
-    name: 'gold',
-    label: 'Gold',
-    description: 'Elegant gold, luxury & premium',
-    preview: '#EAB308',
-    light: {
-      primary: '45 93% 47%',
-      primaryForeground: '45 40% 10%',
-      accent: '45 93% 47%',
-      accentForeground: '45 40% 10%',
-      background: '45 20% 99%',
-      foreground: '45 30% 10%',
-      muted: '45 20% 95%',
-      mutedForeground: '45 15% 40%',
-      card: '0 0% 100%',
-      cardForeground: '45 30% 10%',
-      border: '45 20% 88%',
-      ring: '45 93% 47%',
-    },
-    dark: {
-      primary: '48 96% 53%',
-      primaryForeground: '45 40% 10%',
-      accent: '48 96% 53%',
-      accentForeground: '45 40% 10%',
-      background: '45 20% 4%',
-      foreground: '45 10% 98%',
-      muted: '45 20% 9%',
-      mutedForeground: '45 15% 55%',
-      card: '45 20% 6%',
-      cardForeground: '45 10% 98%',
-      border: '45 15% 12%',
-      ring: '48 96% 53%',
-    },
-  },
 }
 
 // ===========================================
 // ACTIVE THEME CONFIGURATION
 // ===========================================
 
-export const ACTIVE_THEME: ThemeName = 'midnight'
+export const ACTIVE_THEME: ThemeName = 'gold'
 
 // Get the current active theme
 export const getActiveTheme = (): Theme => themes[ACTIVE_THEME]
